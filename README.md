@@ -18,9 +18,18 @@ It tells the story of the two apps:
 
 ```sh
 npm install      # once
-npm run dev      # local dev server (http://localhost:4321)
+npm run dev      # local dev server (http://localhost:4321/NamProduct/)
 npm run build    # static production build → dist/
 npm run preview  # serve the production build locally
+```
+
+Or use the `Makefile` shortcuts (`make` lists them):
+
+```sh
+make dev     # start the dev server
+make open    # open the local site in the browser
+make pages   # open the published GitHub Pages site
+make deploy  # push main to trigger the Pages deploy
 ```
 
 ## Structure
