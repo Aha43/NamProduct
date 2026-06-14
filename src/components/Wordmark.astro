@@ -1,0 +1,24 @@
+---
+// Nam wordmark: the brand mark + "NAM" / "NEXT ACTION MASTER" lockup.
+// Concept ported from NamDesktop src/icons/logo-wordmark.svg.
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  /** Hide the "NEXT ACTION MASTER" subtitle (e.g. in a compact header). */
+  compact?: boolean;
+  class?: string;
+}
+const { compact = false, class: className } = Astro.props;
+---
+
+<a href={import.meta.env.BASE_URL} class={`group inline-flex items-center gap-3 ${className ?? ''}`} aria-label="Nam — Next Action Master">
+  <LogoMark class="h-9 w-9 text-foreground" />
+  <span class="flex flex-col leading-none">
+    <span class="text-xl font-bold tracking-tight text-foreground">NAM</span>
+    {!compact && (
+      <span class="mt-1 text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-muted-foreground">
+        Next Action Master
+      </span>
+    )}
+  </span>
+</a>

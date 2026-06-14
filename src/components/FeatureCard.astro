@@ -1,0 +1,16 @@
+---
+// A small feature card: icon slot + title + description.
+interface Props {
+  title: string;
+  desc: string;
+}
+const { title, desc } = Astro.props;
+---
+
+<div class="rounded-lg border border-border bg-card p-5 transition-colors hover:border-brand/50">
+  <div class="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-md bg-brand/10 text-brand">
+    <slot name="icon" />
+  </div>
+  <h3 class="font-semibold text-card-foreground">{title}</h3>
+  <p class="mt-1.5 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+</div>
