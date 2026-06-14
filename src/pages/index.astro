@@ -15,8 +15,8 @@ const links = {
 
 const pillars = [
   {
-    title: 'Own your data',
-    desc: 'Your work lives in a single file on your machine. No account, no subscription, no mandatory cloud. Back it up, move it, keep it — it is yours.',
+    title: 'Use it anywhere',
+    desc: 'Open Nam in any browser, from your phone to your laptop. Nothing to install, nothing to set up — capture a thought and act on it in seconds.',
   },
   {
     title: 'Stay focused',
@@ -60,14 +60,14 @@ const iconPaths: Record<string, string> = {
     <div class="container flex h-16 items-center justify-between">
       <Wordmark compact />
       <nav class="flex items-center gap-6 text-sm">
-        <a href="#suite" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">The suite</a>
         <a href="#features" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Features</a>
         <a href="#ai" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">AI</a>
+        <a href="#desktop" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Desktop</a>
         <a
-          href={links.desktopReleases}
+          href={links.webApp}
           class="rounded-md bg-primary px-3.5 py-1.5 font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
-          Download
+          Open app
         </a>
       </nav>
     </div>
@@ -85,64 +85,28 @@ const iconPaths: Record<string, string> = {
           Stay clear.<br /><span class="text-brand">Nothing gets lost.</span>
         </h1>
         <p class="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted-foreground">
-          A calm, local-first way to get everything out of your head and onto what matters
-          next. Nam keeps your work on your machine — and in your pocket when you are away
-          from it.
+          A calm way to get everything out of your head and onto what matters next. Open it
+          in any browser, on any device — capture a thought, see what is next, and move on.
         </p>
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
-            href={links.desktopReleases}
+            href={links.webApp}
             class="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
           >
-            Get NamDesktop
+            Open Nam in your browser
           </a>
           <a
-            href={links.webApp}
+            href="#desktop"
             class="inline-flex w-full items-center justify-center rounded-md border border-border bg-card px-6 py-3 font-medium text-card-foreground transition-colors hover:border-brand/50 sm:w-auto"
           >
-            Open NamWeb
+            Prefer a desktop app?
           </a>
         </div>
         <p class="mt-5 text-sm text-muted-foreground">
-          Free &amp; open source · macOS &amp; Windows · No account required
+          Free &amp; open source · Works in any browser · Desktop app for macOS &amp; Windows
         </p>
       </div>
     </section>
-
-    <!-- The suite -->
-    <Section
-      id="suite"
-      eyebrow="One system, two surfaces"
-      title="The Nam suite"
-      lead="The same node tree, wherever you are. The desktop is your workbench; the web is the companion you reach for on the go."
-    >
-      <div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-        <div class="rounded-xl border border-border bg-card p-7">
-          <span class="inline-flex items-center rounded-full bg-brand/10 px-2.5 py-1 text-xs font-medium text-brand">Primary app</span>
-          <h3 class="mt-4 text-2xl font-bold text-card-foreground">NamDesktop</h3>
-          <p class="mt-3 text-muted-foreground">
-            The full workbench. Capture, organize related work, and see what is ready to do
-            — all local-first, with your data kept as a single file on your machine.
-            macOS &amp; Windows.
-          </p>
-          <a href={links.desktopRepo} class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline">
-            View on GitHub →
-          </a>
-        </div>
-        <div class="rounded-xl border border-border bg-card p-7">
-          <span class="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Companion</span>
-          <h3 class="mt-4 text-2xl font-bold text-card-foreground">NamWeb</h3>
-          <p class="mt-3 text-muted-foreground">
-            Fast capture and triage from any phone, tablet, or browser. Add a thought, see
-            what is next, tick something done — always in sync with the desktop through the
-            shared cloud backend.
-          </p>
-          <a href={links.webRepo} class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
-            View on GitHub →
-          </a>
-        </div>
-      </div>
-    </Section>
 
     <!-- Three pillars -->
     <Section eyebrow="Why Nam" title="Built around three ideas" class="bg-card/30">
@@ -220,6 +184,36 @@ const iconPaths: Record<string, string> = {
       </div>
     </Section>
 
+    <!-- Desktop (the niche option) -->
+    <Section id="desktop" class="bg-card/30">
+      <div class="mx-auto max-w-2xl">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand">For power users &amp; purists</p>
+        <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Want it all on your own machine?
+        </h2>
+        <p class="mt-4 text-lg text-muted-foreground">
+          Most people never need to leave the browser. But if you want more room to work — or
+          you would rather your tasks never touch a server — there is a full desktop app.
+          <strong class="font-semibold text-foreground">NamDesktop</strong> is its own thing,
+          for two kinds of people:
+        </p>
+        <ul class="mt-7 space-y-4">
+          {[
+            'Power users who live in Nam all day and want a roomier workbench — and who pair the desktop with the browser app so they can capture on their phone too.',
+            'Old-school and privacy-minded folks who keep everything local: a single file on your own machine, with no cloud at all — or a simple Git sync you control.',
+          ].map((item) => (
+            <li class="flex gap-3 text-muted-foreground">
+              <svg class="mt-1 h-5 w-5 shrink-0 text-brand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7" /></svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={links.desktopReleases} class="mt-8 inline-flex items-center gap-1.5 font-medium text-brand hover:underline">
+          Get NamDesktop · macOS &amp; Windows →
+        </a>
+      </div>
+    </Section>
+
     <!-- Final CTA -->
     <Section>
       <div class="mx-auto max-w-2xl text-center">
@@ -228,21 +222,21 @@ const iconPaths: Record<string, string> = {
           Get your head clear today
         </h2>
         <p class="mt-4 text-lg text-muted-foreground">
-          Download NamDesktop, capture everything on your mind, and let the next action
-          find you.
+          Open Nam in your browser, get everything off your mind, and let the next step
+          find you. No signup ceremony, nothing to install.
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
-            href={links.desktopReleases}
+            href={links.webApp}
             class="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
           >
-            Download NamDesktop
+            Open Nam in your browser
           </a>
           <a
-            href={links.desktopRepo}
+            href="#desktop"
             class="inline-flex w-full items-center justify-center rounded-md border border-border bg-card px-6 py-3 font-medium text-card-foreground transition-colors hover:border-brand/50 sm:w-auto"
           >
-            Star on GitHub
+            Or get the desktop app
           </a>
         </div>
       </div>
