@@ -4,6 +4,7 @@ import Wordmark from '../components/Wordmark.astro';
 import LogoMark from '../components/LogoMark.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import Screenshots from '../components/Screenshots.astro';
 
 // External links. TODO: real desktop download URL once releases are published.
 const links = {
@@ -33,6 +34,14 @@ const steps = [
   { n: '01', title: 'Capture', desc: 'Drop anything on your mind into the inbox. Do not sort it — just get it down.' },
   { n: '02', title: 'Sort', desc: 'Later, decide what each thing really is: a quick task, a bigger project, or nothing at all.' },
   { n: '03', title: 'Do', desc: 'Nam shows what is ready to act on right now. Pick one and go — the rest waits its turn.' },
+];
+
+// Screenshot slideshow. TODO(#23): add `img`/`alt` once the demo shots are captured.
+const screenshots = [
+  { caption: 'Inbox', desc: 'Capture now, clarify later — everything lands in one place.' },
+  { caption: 'Next', desc: 'A clear list of what is actually ready to do right now.' },
+  { caption: 'Projects', desc: 'Your work as a hierarchy, nested as deep as you need.' },
+  { caption: 'An open project', desc: 'A focused workbench for one project and its actions.' },
 ];
 
 const features = [
@@ -120,6 +129,11 @@ const iconPaths: Record<string, string> = {
         </p>
       </div>
     </section>
+
+    <!-- Screenshot slideshow -->
+    <Section eyebrow="See it in action" title="A look inside">
+      <Screenshots slides={screenshots} />
+    </Section>
 
     <!-- Three pillars -->
     <Section eyebrow="Why Nam" title="Built around three ideas" class="bg-card/30">
