@@ -11,12 +11,13 @@ const links = {
   webRepo: 'https://github.com/Aha43/NamWeb',
   desktopReleases: 'https://github.com/Aha43/NamDesktop/releases',
   webApp: 'https://github.com/Aha43/NamWeb', // TODO: hosted NamWeb URL once deployed
+  webDemo: 'https://github.com/Aha43/NamWeb', // TODO: hosted /demo URL once deployed
 };
 
 const pillars = [
   {
     title: 'Use it anywhere',
-    desc: 'Open Nam in any browser, from your phone to your laptop. Nothing to install, nothing to set up — capture a thought and act on it in seconds.',
+    desc: 'Open Nam in any browser, from your phone to your laptop. Nothing to install — make an account and you are capturing in seconds, or try the demo first.',
   },
   {
     title: 'Stay focused',
@@ -24,7 +25,7 @@ const pillars = [
   },
   {
     title: 'Work with AI',
-    desc: 'Nam connects to Claude out of the box. Ask it to sort your inbox or sketch out a project, then accept or reject what it proposes.',
+    desc: 'Connect Claude or ChatGPT to Nam. Ask it to sort your inbox or sketch out a project — and it checks with you before every change.',
   },
 ];
 
@@ -96,7 +97,7 @@ const iconPaths: Record<string, string> = {
         </h1>
         <p class="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted-foreground">
           Nam holds everything on your mind and shows you the one thing to do next. It runs
-          in any browser, on any device — no install, no account.
+          in any browser, on any device — make an account and go, or try the demo first.
         </p>
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
@@ -106,10 +107,10 @@ const iconPaths: Record<string, string> = {
             Open Nam in your browser
           </a>
           <a
-            href="#desktop"
+            href={links.webDemo}
             class="inline-flex w-full items-center justify-center rounded-md border border-border bg-card px-6 py-3 font-medium text-card-foreground transition-colors hover:border-brand/50 sm:w-auto"
           >
-            Prefer a desktop app?
+            Try the demo — no account
           </a>
         </div>
         <p class="mt-5 text-sm text-muted-foreground">
@@ -168,13 +169,13 @@ const iconPaths: Record<string, string> = {
       <div class="mx-auto grid max-w-4xl items-center gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-2 sm:p-12">
         <div>
           <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand">AI-native</p>
-          <h2 class="text-3xl font-bold tracking-tight text-card-foreground">Hand the busywork to Claude</h2>
+          <h2 class="text-3xl font-bold tracking-tight text-card-foreground">Hand the busywork to your AI</h2>
           <p class="mt-4 text-muted-foreground">
-            Nam talks to Claude out of the box. Ask it to sort your inbox, sketch out a
-            project, or tidy things up — then review the changes and accept or reject them
-            in one click. Nothing happens to your work without your say-so.
+            Connect Nam to Claude or ChatGPT over MCP. Ask it to sort your inbox, sketch out a
+            project, or tidy things up — and your assistant checks with you before every change.
+            Nothing touches your workspace without your okay.
           </p>
-          <a href={links.desktopRepo} class="mt-6 inline-flex items-center gap-1.5 font-medium text-brand hover:underline">
+          <a href={links.webRepo} class="mt-6 inline-flex items-center gap-1.5 font-medium text-brand hover:underline">
             See how it works →
           </a>
         </div>
@@ -252,7 +253,7 @@ const iconPaths: Record<string, string> = {
         </h2>
         <p class="mt-4 text-lg text-muted-foreground">
           Open Nam in your browser, get everything off your mind, and let the next step
-          find you. No signup ceremony, nothing to install.
+          find you. Make an account and go — or try the demo first.
         </p>
         <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
