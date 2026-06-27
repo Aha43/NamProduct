@@ -87,19 +87,19 @@ const iconPaths: Record<string, string> = {
   <main>
     <!-- Hero -->
     <section class="hero-glow relative overflow-hidden">
-      <div class="container py-24 text-center sm:py-32">
+      <div class="container py-16 text-center sm:py-24">
         <LogoMark class="mx-auto h-16 w-16 text-foreground" />
-        <p class="mt-6 text-sm font-semibold uppercase tracking-[0.35em] text-muted-foreground">
+        <p class="mt-5 text-sm font-semibold uppercase tracking-[0.35em] text-muted-foreground">
           Next Action Master
         </p>
-        <h1 class="mx-auto mt-5 max-w-3xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
+        <h1 class="mx-auto mt-4 max-w-3xl text-balance text-4xl font-semibold leading-tight tracking-tight text-foreground sm:text-5xl">
           Stay clear.<br /><span class="text-brand">Nothing gets lost.</span>
         </h1>
         <p class="mx-auto mt-6 max-w-xl text-pretty text-lg text-muted-foreground">
           Nam holds everything on your mind and shows you the one thing to do next. It runs
           in any browser, on any device — make an account and go, or try the demo first.
         </p>
-        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <a
             href={links.webApp}
             class="inline-flex w-full items-center justify-center rounded-md bg-primary px-6 py-3 font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:w-auto"
@@ -121,7 +121,7 @@ const iconPaths: Record<string, string> = {
 
     <!-- Three pillars -->
     <Section eyebrow="Why Nam" title="Built around three ideas" class="bg-card/30">
-      <div class="grid gap-x-10 gap-y-12 md:grid-cols-3">
+      <div class="grid gap-x-10 gap-y-8 md:grid-cols-3">
         {pillars.map((p) => (
           <div class="border-t border-brand/40 pt-5">
             <h3 class="text-lg font-semibold text-foreground">{p.title}</h3>
@@ -155,7 +155,7 @@ const iconPaths: Record<string, string> = {
       title="Just enough structure"
       lead="One simple set of work you can look at in different ways — never more app than the job needs."
     >
-      <div class="mx-auto grid max-w-4xl gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mx-auto grid max-w-4xl gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (
           <FeatureCard title={f.title} desc={f.desc}>
             <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths[f.icon]} />
@@ -166,7 +166,7 @@ const iconPaths: Record<string, string> = {
 
     <!-- AI-native -->
     <Section id="ai">
-      <div class="mx-auto grid max-w-4xl items-center gap-10 rounded-2xl border border-border bg-card p-8 md:grid-cols-2 sm:p-12">
+      <div class="mx-auto grid max-w-4xl items-center gap-10 rounded-2xl border border-border bg-card p-7 md:grid-cols-2 sm:p-10">
         <div>
           <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand">AI-native</p>
           <h2 class="text-3xl font-bold tracking-tight text-card-foreground">Hand the busywork to your AI</h2>
@@ -205,7 +205,7 @@ const iconPaths: Record<string, string> = {
           {pressCaption}
         </figcaption>
       </figure>
-      <div class="mx-auto mt-14 grid max-w-4xl gap-x-10 gap-y-10 sm:grid-cols-2">
+      <div class="mx-auto mt-10 grid max-w-4xl gap-x-10 gap-y-8 sm:grid-cols-2">
         {pressQuotes.map((q) => (
           <blockquote class="border-t border-brand/40 pt-5">
             <p class="text-pretty leading-relaxed text-foreground/90">&ldquo;{q}&rdquo;</p>

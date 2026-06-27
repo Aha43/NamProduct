@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
+  the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
+  denser without a redesign. Closes #12.
+
 - **Landing copy now matches NamWeb-as-standalone.** Dropped the "no install, no account" /
   "no signup ceremony" claims — NamWeb has real accounts, and the **demo** is the no-account
   on-ramp (now its own hero CTA). The AI section reflects MCP reality: connect Claude *or* ChatGPT,
@@ -16,6 +20,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   guide in `CLAUDE.md` updated to match. Closes #2.
 
 ### Fixed
+
+- **Site no longer renders unstyled on GitHub Pages.** Added `public/.nojekyll` so each build
+  emits `.nojekyll` at the published root. Without it, Pages' Jekyll step stripped Astro's
+  `_astro/` assets (CSS/JS), 404-ing every stylesheet. Closes #14.
 
 - **Production deploy no longer wipes open PR previews.** The `gh-pages` deploy now commits
   without force-pushing (`force: false`), so the `pr-preview/` dir survives a push to `main`.
