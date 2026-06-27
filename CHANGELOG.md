@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
+  the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
+  denser without a redesign. Closes #12.
+
 - **Landing copy now matches NamWeb-as-standalone.** Dropped the "no install, no account" /
   "no signup ceremony" claims — NamWeb has real accounts, and the **demo** is the no-account
   on-ramp (now its own hero CTA). The AI section reflects MCP reality: connect Claude *or* ChatGPT,

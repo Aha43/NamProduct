@@ -11,10 +11,10 @@ interface Props {
 const { id, eyebrow, title, lead, class: className } = Astro.props;
 ---
 
-<section id={id} class={`py-20 sm:py-28 ${className ?? ''}`}>
+<section id={id} class={`py-14 sm:py-20 ${className ?? ''}`}>
   <div class="container">
     {(eyebrow || title || lead) && (
-      <div class="mx-auto mb-14 max-w-2xl text-center">
+      <div class="mx-auto mb-10 max-w-2xl text-center">
         {eyebrow && (
           <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-brand">{eyebrow}</p>
         )}
