@@ -44,6 +44,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **"See it in action" screenshot slideshow.** A new section after the hero auto-advances through
+  four captioned slides (Inbox, Next, Projects, an open project) — with dots, prev/next, pause on
+  hover/focus, and reduced-motion support. Slides are placeholders for now; real demo screenshots
+  land in #23. Closes #22.
+
 - **Development workflow.** CI (`astro check` + build) on every PR, a light changelog, and
   GitHub issue templates — adapted from the NamWeb workflow. PR previews to follow. Closes #3.
 
