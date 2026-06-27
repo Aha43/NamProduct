@@ -43,6 +43,15 @@ const features = [
   { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus' },
 ];
 
+// Imagined review — the kind of write-up Nam is built to earn, not real coverage.
+// Swap in attributed quotes (outlet + article URL) if real press ever lands.
+const pressHeadline = 'Your tasks do not need a bigger database. They need a better funnel.';
+const pressCaption = 'The review we’d like to wake up to — imagined, for now.';
+const pressQuotes = [
+  'A rejection of a certain kind of productivity software: endlessly configurable systems that become impressive filing cabinets for work nobody actually does.',
+  'At a time when many apps claim intelligence by promising to decide for users, Nam’s pitch is more restrained: it will not know your life better than you do.',
+];
+
 // Stroke-based icon path data (Tabler/Lucide style), keyed by the `icon` field above.
 const iconPaths: Record<string, string> = {
   inbox: '<path d="M4 13h4l2 3h4l2-3h4"/><path d="M5 13l1.5-6.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 13v4a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/>',
@@ -62,6 +71,7 @@ const iconPaths: Record<string, string> = {
       <nav class="flex items-center gap-6 text-sm">
         <a href="#features" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Features</a>
         <a href="#ai" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">AI</a>
+        <a href="#press" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Review</a>
         <a href="#desktop" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Desktop</a>
         <a
           href={links.webApp}
@@ -181,6 +191,25 @@ const iconPaths: Record<string, string> = {
           <p>↳ moved 1 item to later</p>
           <p class="mt-2"><span class="text-foreground">[ accept ]</span> [ reject ]</p>
         </div>
+      </div>
+    </Section>
+
+    <!-- Imagined review (not real coverage — see index data above) -->
+    <Section id="press" eyebrow="An imagined review" class="bg-card/30">
+      <figure class="mx-auto max-w-3xl text-center">
+        <blockquote class="text-balance text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+          &ldquo;{pressHeadline}&rdquo;
+        </blockquote>
+        <figcaption class="mt-6 text-sm text-muted-foreground">
+          {pressCaption}
+        </figcaption>
+      </figure>
+      <div class="mx-auto mt-14 grid max-w-4xl gap-x-10 gap-y-10 sm:grid-cols-2">
+        {pressQuotes.map((q) => (
+          <blockquote class="border-t border-brand/40 pt-5">
+            <p class="text-pretty leading-relaxed text-foreground/90">&ldquo;{q}&rdquo;</p>
+          </blockquote>
+        ))}
       </div>
     </Section>
 
