@@ -1,0 +1,44 @@
+name: PR Preview
+
+on:
+  pull_request:
+    # `closed` lets the action tear the preview down when the PR is merged/closed.
+    types: [opened, reopened, synchronize, closed]
+
+# Write to the gh-pages branch (pr-preview/ subfolder) and comment the URL on the PR.
+permissions:
+  contents: write
+  pull-requests: write
+
+# One preview build per PR; cancel a superseded one.
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      # Skip the build on `closed` — the action only needs to remove the directory then.
+      - uses: actions/setup-node@v5
+        if: github.event.action != 'closed'
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+        if: github.event.action != 'closed'
+      # Build under the preview subpath so asset URLs resolve at
+      # /NamProduct/pr-preview/pr-<n>/.
+      - run: npm run build
+        if: github.event.action != 'closed'
+        env:
+          SITE_BASE: /NamProduct/pr-preview/pr-${{ github.event.number }}
+
+      - name: Deploy / update / remove preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview

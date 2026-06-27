@@ -5,34 +5,36 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Allow the workflow to publish to Pages via OIDC.
+# Publish the production build to the `gh-pages` branch root. Previews from
+# pr-preview.yml live in pr-preview/ on the same branch, so the deploy preserves
+# that directory (clean-exclude) instead of wiping it.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# One deploy at a time; don't cancel an in-progress production deploy.
+# One production deploy at a time; don't cancel an in-progress publish.
 concurrency:
-  group: pages
+  group: pages-deploy
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      # withastro/action installs deps, runs `astro build`, and uploads the Pages artifact.
-      - name: Build
-        uses: withastro/action@v3
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          clean: true
+          clean-exclude: |
+            pr-preview/
+          # Commit without force-pushing — a force-push overwrites the whole branch
+          # (including pr-preview/), defeating clean-exclude and wiping open previews.
+          force: false
