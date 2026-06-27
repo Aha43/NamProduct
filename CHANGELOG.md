@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **Feature-card icons match the web app.** The landing-page feature icons now use the exact
+  lucide icons NamWeb shows in its nav (Inbox, Folders, ListTodo, Tag, LayoutDashboard, Target),
+  instead of hand-rolled approximations. Closes #16.
+
 - **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
   the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
   denser without a redesign. Closes #12.
