@@ -35,3 +35,6 @@ jobs:
           clean: true
           clean-exclude: |
             pr-preview/
+          # Commit without force-pushing — a force-push overwrites the whole branch
+          # (including pr-preview/), defeating clean-exclude and wiping open previews.
+          force: false
