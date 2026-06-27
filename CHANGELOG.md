@@ -7,6 +7,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- **Production deploy no longer wipes open PR previews.** The `gh-pages` deploy now commits
+  without force-pushing (`force: false`), so the `pr-preview/` dir survives a push to `main`.
+  Closes #7.
+
 ### Added
 
 - **Development workflow.** CI (`astro check` + build) on every PR, a light changelog, and
