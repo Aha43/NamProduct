@@ -13,6 +13,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   now just says you use Claude or ChatGPT alongside Nam and it checks with you before changing
   anything. Closes #18.
 
+- **App CTAs point at the real hosted app.** Buttons now open NamWeb at `usenam.app` instead of
+  the GitHub repo: the header "Open app" and hero "Try the demo" go straight to `usenam.app/demo`
+  (no account), while "Open Nam in your browser" opens `usenam.app` (sign in / sign up, which also
+  links to the demo). Closes #17.
+
+- **Feature-card icons match the web app.** The landing-page feature icons now use the exact
+  lucide icons NamWeb shows in its nav (Inbox, Folders, ListTodo, Tag, LayoutDashboard, Target),
+  instead of hand-rolled approximations. Closes #16.
+
 - **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
   the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
   denser without a redesign. Closes #12.
