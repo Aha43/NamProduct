@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Landing copy now matches NamWeb-as-standalone.** Dropped the "no install, no account" /
+  "no signup ceremony" claims — NamWeb has real accounts, and the **demo** is the no-account
+  on-ramp (now its own hero CTA). The AI section reflects MCP reality: connect Claude *or* ChatGPT,
+  with confirmation **connector-side per change** (no implied Nam-native accept/reject). Messaging
+  guide in `CLAUDE.md` updated to match. Closes #2.
+
 ### Fixed
 
 - **Production deploy no longer wipes open PR previews.** The `gh-pages` deploy now commits

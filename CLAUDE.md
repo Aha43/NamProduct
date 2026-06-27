@@ -25,8 +25,15 @@ in sibling repos `../NamDesktop` (Java/Swing, primary) and `../NamWeb` (React, c
 ## Messaging (keep consistent with the apps)
 
 - Tagline: **"Stay clear. Nothing gets lost."**
-- Positioning: own your data · stay focused · work with AI. Local-first, no account/
-  subscription. NamDesktop = workbench (primary); NamWeb = synced companion.
+- Positioning: use it anywhere · stay focused · work with AI.
+- **NamWeb is the default, standalone product** — runs in any browser, with **real accounts**
+  (sign up / verify / export), single-player by design. The **demo** is the no-account on-ramp;
+  don't claim the whole product is accountless ("no account" applies to the demo, not NamWeb).
+- **NamDesktop is the power / local-first niche** (own your data, a single file or Git sync, no
+  cloud) — not the default.
+- **AI:** you connect **Claude or ChatGPT to Nam over a remote MCP server** — Nam doesn't embed an
+  assistant. Writes are **confirmed connector-side, per change** (the assistant prompts before each
+  tool runs), so don't imply a Nam-native "accept/reject" dialog.
 
 ## Workflow
 
