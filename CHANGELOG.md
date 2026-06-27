@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
+- **Site no longer renders unstyled on GitHub Pages.** Added `public/.nojekyll` so each build
+  emits `.nojekyll` at the published root. Without it, Pages' Jekyll step stripped Astro's
+  `_astro/` assets (CSS/JS), 404-ing every stylesheet. Closes #14.
+
 - **Production deploy no longer wipes open PR previews.** The `gh-pages` deploy now commits
   without force-pushing (`force: false`), so the `pr-preview/` dir survives a push to `main`.
   Closes #7.
