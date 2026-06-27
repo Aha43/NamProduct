@@ -44,6 +44,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Real demo screenshots in the slideshow.** Captured Inbox, Next, Projects, and an open
+  project from the live demo (dark, banner-free, 16:10) and wired them into the slideshow,
+  replacing the placeholders. Closes #23.
+
 - **"See it in action" screenshot slideshow.** A new section after the hero auto-advances through
   four captioned slides (Inbox, Next, Projects, an open project) — with dots, prev/next, pause on
   hover/focus, and reduced-motion support. Slides are placeholders for now; real demo screenshots
