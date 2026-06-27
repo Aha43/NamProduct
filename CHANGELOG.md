@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **Plainer AI section.** Dropped the engineering jargon ("over MCP", "connect … to") — the copy
+  now just says you use Claude or ChatGPT alongside Nam and it checks with you before changing
+  anything. Closes #18.
+
 - **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
   the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
   denser without a redesign. Closes #12.
