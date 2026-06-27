@@ -11,12 +11,20 @@ interface Slide {
 }
 interface Props {
   slides: Slide[];
+  eyebrow?: string;
 }
-const { slides } = Astro.props;
+const { slides, eyebrow } = Astro.props;
 const first = slides[0];
 ---
 
 <div class="mx-auto max-w-4xl" data-screenshots>
+  <!-- Header: the current slide's caption stands in for a section title (smaller than one). -->
+  <div class="mb-8 text-center">
+    {eyebrow && <p class="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-brand">{eyebrow}</p>}
+    <p class="text-xl font-semibold tracking-tight text-foreground sm:text-2xl" data-caption-out>{first.caption}</p>
+    <p class="mt-1 min-h-[1.5rem] text-sm text-muted-foreground" data-desc-out>{first.desc ?? ''}</p>
+  </div>
+
   <div class="relative overflow-hidden rounded-xl border border-border bg-card shadow-sm">
     <div class="relative aspect-[16/10]">
       {slides.map((s, i) => (
@@ -43,12 +51,7 @@ const first = slides[0];
     </div>
   </div>
 
-  <div class="mt-4 flex items-center justify-between gap-4">
-    <div class="min-h-[2.75rem]">
-      <p class="font-medium text-foreground" data-caption-out>{first.caption}</p>
-      <p class="text-sm text-muted-foreground" data-desc-out>{first.desc ?? ''}</p>
-    </div>
-    <div class="flex shrink-0 items-center gap-3">
+  <div class="mt-5 flex items-center justify-center gap-3">
       <button type="button" data-toggle aria-label="Pause slideshow" class="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-muted-foreground transition-colors hover:border-brand/50 hover:text-foreground">
         <svg data-icon-pause xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
         <svg data-icon-play class="hidden" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 4 12 8-12 8z"/></svg>
