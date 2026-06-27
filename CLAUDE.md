@@ -43,9 +43,11 @@ Adapted from NamWeb's, scaled down for a static marketing site.
   batch straight through: one issue → one independent branch → one PR, no merging mid-sprint.
 - **Update `CHANGELOG.md`** (`## [Unreleased]`) only for substantive content/design/structure
   changes — not routine copy tweaks. `Added` / `Changed` / `Fixed`, with `Closes #<n>`.
-- **PR previews:** not wired up yet (planned — GitHub Actions deploy of each branch to a
-  `gh-pages` subfolder, with a per-PR `base` override). Until then, reviewers build locally
-  (`make preview`) or rely on the CI build + screenshots.
+- **PR previews:** every PR is published to `gh-pages` at `/NamProduct/pr-preview/pr-<n>/`
+  (`pr-preview.yml`), with the URL auto-commented and removed on close. Previews are built with
+  `SITE_BASE` overriding the Astro `base` so assets resolve under the subpath. Production also
+  deploys via the `gh-pages` branch (`deploy.yml`), preserving the `pr-preview/` dir. The Pages
+  source is **Deploy from branch → gh-pages / root**.
 
 ## Open TODOs
 
