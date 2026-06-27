@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **App CTAs point at the real hosted app.** Buttons now open NamWeb at `usenam.app` instead of
+  the GitHub repo: the header "Open app" and hero "Try the demo" go straight to `usenam.app/demo`
+  (no account), while "Open Nam in your browser" opens `usenam.app` (sign in / sign up, which also
+  links to the demo). Closes #17.
+
 - **Tighter landing-page density.** Trimmed the systemic vertical rhythm — section padding,
   the section-header margin, hero padding, and a few oversized grid gaps — so the page reads
   denser without a redesign. Closes #12.

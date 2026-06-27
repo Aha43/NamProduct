@@ -5,13 +5,13 @@ import LogoMark from '../components/LogoMark.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 
-// External links. TODO: confirm/replace with real download + hosted URLs when available.
+// External links. TODO: real desktop download URL once releases are published.
 const links = {
   desktopRepo: 'https://github.com/Aha43/NamDesktop',
   webRepo: 'https://github.com/Aha43/NamWeb',
   desktopReleases: 'https://github.com/Aha43/NamDesktop/releases',
-  webApp: 'https://github.com/Aha43/NamWeb', // TODO: hosted NamWeb URL once deployed
-  webDemo: 'https://github.com/Aha43/NamWeb', // TODO: hosted /demo URL once deployed
+  webApp: 'https://usenam.app', // login / sign-up (the auth screen also links to the demo)
+  webDemo: 'https://usenam.app/demo', // straight into the no-account demo
 };
 
 const pillars = [
@@ -75,7 +75,7 @@ const iconPaths: Record<string, string> = {
         <a href="#press" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Review</a>
         <a href="#desktop" class="hidden text-muted-foreground transition-colors hover:text-foreground sm:inline">Desktop</a>
         <a
-          href={links.webApp}
+          href={links.webDemo}
           class="rounded-md bg-primary px-3.5 py-1.5 font-medium text-primary-foreground transition-opacity hover:opacity-90"
         >
           Open app
