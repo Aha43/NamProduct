@@ -8,6 +8,9 @@ in sibling repos `../NamDesktop` (Java/Swing, primary) and `../NamWeb` (React, c
 
 - **Astro + Tailwind CSS**, static output. Node 18+.
 - `npm run dev` / `npm run build` / `npm run preview` / `npm run check` (`astro check`).
+- `npm run shots` regenerates the slideshow screenshots in `public/shots/` from the live demo
+  (`scripts/shots.mjs`, Playwright — run `npx playwright install chromium` once). Re-run when the
+  app's UI changes so the shots don't drift.
 
 ## Conventions
 
