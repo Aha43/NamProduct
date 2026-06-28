@@ -44,6 +44,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Social card for shared links.** Added a branded 1200×630 `public/og.png` and fixed the
+  `og:image` / `twitter:image` tags to emit an absolute, base-correct URL (they previously pointed
+  at a missing, base-less `/og.png`), so links shared to Slack/X/etc. show a proper preview.
+  Closes #27.
+
 - **`npm run shots` regenerates the demo screenshots.** A Playwright script (`scripts/shots.mjs`)
   recaptures the four slideshow images from the live demo so they don't drift as the app changes.
   Closes #26.
