@@ -49,6 +49,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   at a missing, base-less `/og.png`), so links shared to Slack/X/etc. show a proper preview.
   Closes #27.
 
+- **`npm run shots` regenerates the demo screenshots.** A Playwright script (`scripts/shots.mjs`)
+  recaptures the four slideshow images from the live demo so they don't drift as the app changes.
+  Closes #26.
+
 - **Real demo screenshots in the slideshow.** Captured Inbox, Next, Projects, and an open
   project from the live demo (dark, banner-free, 16:10) and wired them into the slideshow,
   replacing the placeholders. Closes #23.
