@@ -44,6 +44,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Social card for shared links.** Added a branded 1200×630 `public/og.png` and fixed the
+  `og:image` / `twitter:image` tags to emit an absolute, base-correct URL (they previously pointed
+  at a missing, base-less `/og.png`), so links shared to Slack/X/etc. show a proper preview.
+  Closes #27.
+
 - **Real demo screenshots in the slideshow.** Captured Inbox, Next, Projects, and an open
   project from the live demo (dark, banner-free, 16:10) and wired them into the slideshow,
   replacing the placeholders. Closes #23.
