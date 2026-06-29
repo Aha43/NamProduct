@@ -43,6 +43,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Changed
 
+- **New tagline.** "Stay clear. Nothing gets lost." → **"Capture loose ends. Find the next
+  action."** (hero + CLAUDE.md messaging).
+
+- **Tighter top of page.** Merged the "Built around three ideas" pillars and the "Capture. Sort.
+  Do." steps into a single calmer **"Why Nam"** section (dropped the big 01/02/03 numbering), so
+  visitors reach the feature mini-tutorials with far less scrolling.
+
+- **"See it in action" is now a full-screen showcase.** Instead of a large inline slideshow, a
+  compact "See it in action" trigger opens the screenshots full-screen (legible) with a big X to
+  close (also Esc / backdrop). `Screenshots` gained an optional `class` prop to widen in the overlay.
+
 - **Plainer AI section.** Dropped the engineering jargon ("over MCP", "connect … to") — the copy
   now just says you use Claude or ChatGPT alongside Nam and it checks with you before changing
   anything. Closes #18.

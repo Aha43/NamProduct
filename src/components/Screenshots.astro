@@ -12,12 +12,13 @@ interface Slide {
 interface Props {
   slides: Slide[];
   eyebrow?: string;
+  class?: string;
 }
-const { slides, eyebrow } = Astro.props;
+const { slides, eyebrow, class: className } = Astro.props;
 const first = slides[0];
 ---
 
-<div class="mx-auto max-w-4xl" data-screenshots>
+<div class={className ? `mx-auto ${className}` : 'mx-auto max-w-4xl'} data-screenshots>
   <!-- Header: the current slide's caption stands in for a section title (smaller than one). -->
   <div class="mb-8 text-center">
     {eyebrow && <p class="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-brand">{eyebrow}</p>}
