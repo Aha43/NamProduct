@@ -106,10 +106,20 @@ const projectsDetailSlides: DetailSlide[] = [
   },
 ];
 
+const nextDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Everything ready, in one list',
+    src: `${base}/shots/next.png`,
+    alt: 'The Next view: actions ready to do now, each with its project, tags, and due date.',
+    description:
+      'Nam pulls the actions that are genuinely ready — across every project — into one list, each with its project, tags, and any due date. You do not go hunting for what is next; it is already in front of you.',
+  },
+];
+
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
-  { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next' },
+  { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next', detailId: 'next' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags' },
   { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals' },
   { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus' },
@@ -254,6 +264,12 @@ const iconPaths: Record<string, string> = {
       title="Projects, nested as deep as you like"
       subtitle="Group related work, then open it up into a focused workbench."
       slides={projectsDetailSlides}
+    />
+    <DetailOverlay
+      id="next"
+      title="The one list of what is ready"
+      subtitle="No digging, no deciding what is next — Nam keeps it in front of you."
+      slides={nextDetailSlides}
     />
 
     <!-- AI-native -->
