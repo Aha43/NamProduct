@@ -1,10 +1,12 @@
 ---
-// A borderless feature item: icon beside a title + description.
+// A borderless feature item: icon beside a title + description. When `detailId` is set,
+// the card gains a "Learn more" trigger that opens the matching <DetailOverlay id={detailId}>.
 interface Props {
   title: string;
   desc: string;
+  detailId?: string;
 }
-const { title, desc } = Astro.props;
+const { title, desc, detailId } = Astro.props;
 ---
 
 <div class="flex gap-4">
@@ -14,5 +16,15 @@ const { title, desc } = Astro.props;
   <div>
     <h3 class="font-semibold text-foreground">{title}</h3>
     <p class="mt-1 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+    {detailId && (
+      <button
+        type="button"
+        data-detail-open={detailId}
+        class="group mt-2 inline-flex items-center gap-1 text-sm font-medium text-brand transition-colors hover:text-brand/80"
+      >
+        Learn more
+        <span class="transition-transform group-hover:translate-x-0.5">→</span>
+      </button>
+    )}
   </div>
 </div>

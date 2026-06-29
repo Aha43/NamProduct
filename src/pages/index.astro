@@ -4,6 +4,8 @@ import Wordmark from '../components/Wordmark.astro';
 import LogoMark from '../components/LogoMark.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
+import DetailOverlay from '../components/DetailOverlay.astro';
+import type { DetailSlide } from '../components/DetailOverlay.astro';
 
 // External links. TODO: confirm/replace with real download + hosted URLs when available.
 const links = {
@@ -34,8 +36,8 @@ const steps = [
   { n: '03', title: 'Do', desc: 'Nam shows what is ready to act on right now. Pick one and go — the rest waits its turn.' },
 ];
 
-const features = [
-  { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox' },
+const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
+  { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'tree' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'bolt' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tag' },
@@ -49,6 +51,47 @@ const pressArticle = 'NamWeb Wants to Be the Todo App Before the Todo App Gets O
 const pressQuotes = [
   'A rejection of a certain kind of productivity software: endlessly configurable systems that become impressive filing cabinets for work nobody actually does.',
   'At a time when many apps claim intelligence by promising to decide for users, Nam’s pitch is more restrained: it will not know your life better than you do.',
+];
+
+// "Details" — deep-dives that open as a panel hovering over the page. The first one
+// walks through how you process an inbox item: decide what each thing really is.
+// Screenshots are captured from the NamWeb demo (see scripts/capture-details.mjs).
+const inboxDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Start with the inbox',
+    src: '/details/inbox/01-inbox.png',
+    alt: 'The Nam inbox holding a handful of unsorted notes.',
+    description:
+      'Everything you captured lands here, unsorted. Processing the inbox just means going through it and deciding what each thing really is.',
+  },
+  {
+    caption: 'Decide what it is',
+    src: '/details/inbox/02-process.png',
+    alt: 'The process dialog asking whether an item is a single action or needs planning.',
+    description:
+      'Pick up the top item and Nam asks one question: is this a single action, or does it need planning? Two paths, no ceremony.',
+  },
+  {
+    caption: 'A quick action',
+    src: '/details/inbox/03-action.png',
+    alt: 'Turning an inbox item into an action to do next or park in the backlog.',
+    description:
+      'If it is one step, turn it into an action — do it next, or park it in the backlog for when the time is right.',
+  },
+  {
+    caption: 'Something bigger',
+    src: '/details/inbox/04-project.png',
+    alt: 'Turning an inbox item into a project.',
+    description:
+      'If it needs more than one step, make it a project. Now it has a home, and you can break it down whenever you like.',
+  },
+  {
+    caption: 'Nothing to do',
+    src: '/details/inbox/05-delete.png',
+    alt: 'Deleting an inbox item that no longer needs to exist.',
+    description:
+      'Not everything deserves to survive. If it is no longer worth doing, let it go — a clear inbox is the whole point.',
+  },
 ];
 
 // Stroke-based icon path data (Tabler/Lucide style), keyed by the `icon` field above.
@@ -155,12 +198,20 @@ const iconPaths: Record<string, string> = {
     >
       <div class="mx-auto grid max-w-4xl gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (
-          <FeatureCard title={f.title} desc={f.desc}>
+          <FeatureCard title={f.title} desc={f.desc} detailId={f.detailId}>
             <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths[f.icon]} />
           </FeatureCard>
         ))}
       </div>
     </Section>
+
+    <!-- Detail overlays: panels that hover over the page for an in-depth look. -->
+    <DetailOverlay
+      id="inbox"
+      title="Ways to process an inbox"
+      subtitle="Go through what you captured and decide what each thing really is."
+      slides={inboxDetailSlides}
+    />
 
     <!-- AI-native -->
     <Section id="ai">
