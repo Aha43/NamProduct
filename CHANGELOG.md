@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Next up detail.** The **Next up** feature card opens a single-slide deep-dive — the Next
+  view pulls every ready action into one list with project, tags, and due dates. Reuses
+  `public/shots/next.png`.
+
 - **Detail deep-dives.** Feature cards can now open a "detail" — a panel that hovers over the
   page to explain one aspect of Nam in depth, advanced by hand (no autoplay). The first,
   opened from the **Inbox** card, is **"Ways to process an inbox"**: decide what an item is →
