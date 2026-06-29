@@ -1,0 +1,157 @@
+---
+// A "detail": a panel that hovers over the page to explain one aspect of Nam in depth.
+// Where the Screenshots slideshow is the always-on overview, a detail is the on-demand
+// deep dive — opened from a feature card and advanced by hand (no autoplay). Each slide is
+// a caption on top, a screenshot in the middle, and a short description at the bottom.
+//
+// Open it from anywhere with a trigger: <button data-detail-open="inbox">…</button>, where
+// "inbox" matches this component's `id`. Image `src` paths should already include the site
+// base (build them with import.meta.env.BASE_URL, as index.astro does for the slideshow).
+export interface DetailSlide {
+  caption: string;
+  src: string;
+  alt: string;
+  description: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  subtitle?: string;
+  slides: DetailSlide[];
+}
+
+const { id, title, subtitle, slides } = Astro.props;
+const multi = slides.length > 1;
+---
+
+<dialog
+  id={`detail-${id}`}
+  data-detail-overlay
+  aria-label={title}
+  class="detail-dialog m-auto w-[min(56rem,calc(100vw-2rem))] rounded-2xl border border-border bg-card p-0 text-card-foreground shadow-2xl backdrop:bg-background/70 backdrop:backdrop-blur-sm"
+>
+  <div class="flex max-h-[calc(100vh-4rem)] flex-col">
+    <header class="flex items-start justify-between gap-4 border-b border-border/60 px-6 py-4 sm:px-8">
+      <div>
+        <h2 class="text-lg font-semibold tracking-tight text-foreground">{title}</h2>
+        {subtitle && <p class="mt-0.5 text-sm text-muted-foreground">{subtitle}</p>}
+      </div>
+      <button
+        type="button"
+        data-detail-close
+        aria-label="Close"
+        class="-mr-1 -mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+      </button>
+    </header>
+
+    <div class="overflow-y-auto px-6 py-6 sm:px-8">
+      {slides.map((slide, i) => (
+        <figure data-detail-slide={i} class={i === 0 ? '' : 'hidden'}>
+          <figcaption class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+            {slide.caption}
+          </figcaption>
+          <div class="mt-4 overflow-hidden rounded-xl border border-border bg-background">
+            <img src={slide.src} alt={slide.alt} loading="lazy" class="block w-full" />
+          </div>
+          <p class="mx-auto mt-4 max-w-2xl text-pretty text-center leading-relaxed text-muted-foreground">
+            {slide.description}
+          </p>
+        </figure>
+      ))}
+    </div>
+
+    {multi && (
+      <footer class="flex items-center justify-between gap-4 border-t border-border/60 px-6 py-4 sm:px-8">
+        <button
+          type="button"
+          data-detail-prev
+          class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+          Back
+        </button>
+
+        <div class="flex items-center gap-2">
+          {slides.map((_, i) => (
+            <span
+              data-detail-dot={i}
+              class={`h-1.5 w-1.5 rounded-full transition-colors ${i === 0 ? 'bg-brand' : 'bg-border'}`}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          data-detail-next
+          class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Next
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+        </button>
+      </footer>
+    )}
+  </div>
+</dialog>
+
+<script>
+  // One global controller for every detail overlay. Idempotent guard keeps re-runs (HMR,
+  // view transitions) from binding duplicate listeners.
+  if (!(window as any).__detailOverlayInit) {
+    (window as any).__detailOverlayInit = true;
+
+    const showSlide = (dialog: HTMLElement, index: number) => {
+      const slides = dialog.querySelectorAll<HTMLElement>('[data-detail-slide]');
+      const clamped = Math.max(0, Math.min(index, slides.length - 1));
+      slides.forEach((s, i) => s.classList.toggle('hidden', i !== clamped));
+      dialog.dataset.current = String(clamped);
+
+      dialog.querySelectorAll<HTMLElement>('[data-detail-dot]').forEach((dot, i) => {
+        dot.classList.toggle('bg-brand', i === clamped);
+        dot.classList.toggle('bg-border', i !== clamped);
+      });
+
+      const prev = dialog.querySelector<HTMLButtonElement>('[data-detail-prev]');
+      const next = dialog.querySelector<HTMLButtonElement>('[data-detail-next]');
+      if (prev) prev.disabled = clamped === 0;
+      if (next) next.disabled = clamped === slides.length - 1;
+    };
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+
+      const opener = target.closest<HTMLElement>('[data-detail-open]');
+      if (opener) {
+        e.preventDefault();
+        const dialog = document.getElementById(`detail-${opener.dataset.detailOpen}`) as HTMLDialogElement | null;
+        if (dialog) {
+          showSlide(dialog, 0);
+          dialog.showModal();
+        }
+        return;
+      }
+
+      const dialog = target.closest<HTMLDialogElement>('[data-detail-overlay]');
+      if (!dialog) return;
+
+      if (target.closest('[data-detail-close]')) {
+        dialog.close();
+      } else if (target.closest('[data-detail-prev]')) {
+        showSlide(dialog, Number(dialog.dataset.current ?? 0) - 1);
+      } else if (target.closest('[data-detail-next]')) {
+        showSlide(dialog, Number(dialog.dataset.current ?? 0) + 1);
+      } else if (target === dialog) {
+        dialog.close(); // a click on the dialog element itself is the backdrop
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const dialog = document.querySelector<HTMLDialogElement>('[data-detail-overlay][open]');
+      if (!dialog) return;
+      showSlide(dialog, Number(dialog.dataset.current ?? 0) + (e.key === 'ArrowRight' ? 1 : -1));
+    });
+  }
+</script>

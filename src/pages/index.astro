@@ -5,6 +5,8 @@ import LogoMark from '../components/LogoMark.astro';
 import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Screenshots from '../components/Screenshots.astro';
+import DetailOverlay from '../components/DetailOverlay.astro';
+import type { DetailSlide } from '../components/DetailOverlay.astro';
 
 // External links. TODO: real desktop download URL once releases are published.
 const links = {
@@ -46,8 +48,49 @@ const screenshots = [
   { caption: 'An open project', desc: 'A focused workbench for one project and its actions.', img: `${base}/shots/project.png`, alt: 'An open project workbench showing its actions and a sub-project.' },
 ];
 
-const features = [
-  { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox' },
+// "Details" — on-demand deep dives that open as a panel hovering over the page. The first,
+// opened from the Inbox card, walks how you process an inbox item. Screenshots reuse the
+// slideshow's public/shots/ set (scripts/shots.mjs); slide one is the inbox overview itself.
+const inboxDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Start with the inbox',
+    src: `${base}/shots/inbox.png`,
+    alt: 'The Nam inbox holding a handful of unsorted notes.',
+    description:
+      'Everything you captured lands here, unsorted. Processing the inbox just means going through it and deciding what each thing really is.',
+  },
+  {
+    caption: 'Decide what it is',
+    src: `${base}/shots/process-choose.png`,
+    alt: 'The process dialog asking whether an item is a single action or needs planning.',
+    description:
+      'Pick up an item and Nam asks one question: is this a single action, or does it need planning? Two paths, no ceremony.',
+  },
+  {
+    caption: 'A quick action',
+    src: `${base}/shots/process-action.png`,
+    alt: 'Turning an inbox item into an action to do next or park in the backlog.',
+    description:
+      'If it is one step, turn it into an action — do it next, or park it in the backlog for when the time is right.',
+  },
+  {
+    caption: 'Something bigger',
+    src: `${base}/shots/process-project.png`,
+    alt: 'Turning an inbox item into a project.',
+    description:
+      'If it needs more than one step, make it a project. Now it has a home, and you can break it down whenever you like.',
+  },
+  {
+    caption: 'Nothing to do',
+    src: `${base}/shots/process-delete.png`,
+    alt: 'Deleting an inbox item that no longer needs to exist.',
+    description:
+      'Not everything deserves to survive. If it is no longer worth doing, let it go — a clear inbox is the whole point.',
+  },
+];
+
+const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
+  { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags' },
@@ -175,12 +218,20 @@ const iconPaths: Record<string, string> = {
     >
       <div class="mx-auto grid max-w-4xl gap-x-10 gap-y-7 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (
-          <FeatureCard title={f.title} desc={f.desc}>
+          <FeatureCard title={f.title} desc={f.desc} detailId={f.detailId}>
             <svg slot="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconPaths[f.icon]} />
           </FeatureCard>
         ))}
       </div>
     </Section>
+
+    <!-- Detail overlays: panels that hover over the page for an on-demand deep dive. -->
+    <DetailOverlay
+      id="inbox"
+      title="Ways to process an inbox"
+      subtitle="Go through what you captured and decide what each thing really is."
+      slides={inboxDetailSlides}
+    />
 
     <!-- AI-native -->
     <Section id="ai">

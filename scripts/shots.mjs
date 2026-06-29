@@ -64,5 +64,36 @@ await page.click('a[href="/projects"]');
 await page.waitForTimeout(1300);
 await shot('projects');
 
+// --- "Ways to process an inbox" detail (the deep-dive overlay) ---
+// Walk the single-item Process… dialog: choose → quick action → something bigger → delete.
+await page.click('a[href="/inbox"]');
+await page.waitForTimeout(1300);
+
+// Per-item rows carry aria-label="Process <title>"; the deck button ("Process inbox (n)")
+// has no aria-label, so this never grabs it. settle() waits out the Radix open animation.
+const processItem = () => page.locator('button[aria-label^="Process "]').first();
+const settle = () => page.waitForTimeout(500);
+
+await processItem().click();
+await settle();
+await shot('process-choose'); // "It's one action" vs "needs planning — make a project"
+
+await page.getByRole('button', { name: /one action/i }).click();
+await settle();
+await shot('process-action'); // Do it next / Park for later (backlog)
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(300);
+await processItem().click();
+await settle();
+await page.getByRole('button', { name: /make a project/i }).click();
+await settle();
+await shot('process-project'); // Make project
+
+await page.keyboard.press('Escape');
+await page.waitForTimeout(300);
+await page.locator('button[aria-label^="Delete "]').first().hover();
+await shot('process-delete'); // the trash affordance, highlighted — "let it go"
+
 await browser.close();
 console.log('Done →', OUT);
