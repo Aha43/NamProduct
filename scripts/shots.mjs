@@ -95,5 +95,14 @@ await page.waitForTimeout(300);
 await page.locator('button[aria-label^="Delete "]').first().hover();
 await shot('process-delete'); // the trash affordance, highlighted — "let it go"
 
+// --- "Goal board" detail: create a board over the home-tagged projects ---
+await page.click('a[href="/goals"]');
+await page.waitForTimeout(1000);
+await page.getByPlaceholder('New goal board…').fill('Home');
+await page.getByPlaceholder('tags (space or comma)').fill('home');
+await page.getByRole('button', { name: 'Create' }).click();
+await page.waitForTimeout(1200);
+await shot('goals');
+
 await browser.close();
 console.log('Done →', OUT);
