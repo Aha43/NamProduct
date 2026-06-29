@@ -95,5 +95,12 @@ await page.waitForTimeout(300);
 await page.locator('button[aria-label^="Delete "]').first().hover();
 await shot('process-delete'); // the trash affordance, highlighted — "let it go"
 
+// --- "Focus mode" detail: enter the immersive deck from the Next list ---
+await page.click('a[href="/next"]');
+await page.waitForTimeout(1200);
+await page.click('a[href="/focus"]');
+await page.waitForTimeout(1800);
+await shot('focus');
+
 await browser.close();
 console.log('Done →', OUT);
