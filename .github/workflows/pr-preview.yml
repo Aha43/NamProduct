@@ -1,0 +1,46 @@
+name: PR Preview
+
+# Deploy every PR to gh-pages under pr-preview/pr-<N>/ and tear it down on close, so each
+# PR gets a live URL at https://aha43.github.io/NamProduct/pr-preview/pr-<N>/ without
+# touching the published site. Mirrors the automation the repo used before (rossjrw 🛫/🛬).
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write       # push the preview to gh-pages
+  pull-requests: write  # leave the preview-link comment
+
+concurrency:
+  group: gh-pages-write
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        if: github.event.action != 'closed'
+        run: npm ci
+
+      # Build with the base set to the exact subpath the preview is served from, so assets
+      # and BASE_URL-prefixed links (e.g. detail screenshots) resolve under it.
+      - name: Build
+        if: github.event.action != 'closed'
+        run: npx astro build --base /NamProduct/pr-preview/pr-${{ github.event.number }}
+
+      - name: Deploy / remove preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: dist
+          # umbrella-dir defaults to "pr-preview"; previews land at pr-preview/pr-<N>/.

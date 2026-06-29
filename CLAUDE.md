@@ -32,24 +32,29 @@ in sibling repos `../NamDesktop` (Java/Swing, primary) and `../NamWeb` (React, c
 
 GitHub Pages here is **`build_type: legacy` — it serves the `gh-pages` branch root** at
 `https://aha43.github.io/NamProduct/` (not the Actions artifact pipeline). Verify with
-`gh api repos/Aha43/NamProduct/pages -q .source`.
+`gh api repos/Aha43/NamProduct/pages -q .source`. So **publishing means pushing the built
+`dist/` to `gh-pages`.** Two workflows automate that (they share a `gh-pages-write`
+concurrency group so they never clobber each other on the branch):
 
-- **Publishing = pushing built `dist/` to `gh-pages`.** The checked-in
-  `.github/workflows/deploy.yml` uses `withastro/action` + `actions/deploy-pages`, the
-  *artifact* method — which only publishes when the Pages source is "GitHub Actions". It is
-  **mismatched with the legacy/branch serving, so merges to `main` do NOT update the live
-  site.** (As of 2026-06, the live site is frozen at an old `JamesIves` deploy.)
-- **There was a tighter automated workflow that a history rewrite dropped:**
-  `JamesIves/github-pages-deploy-action` (main → `gh-pages` root, commit "Deploying to
-  gh-pages … 🚀") + `rossjrw/pr-preview-action` (each PR → `gh-pages` `pr-preview/pr-<N>/`,
-  "Deploy preview … 🛫" / "Remove preview … 🛬"), plus an `npm run shots` script for demo
-  screenshots. Orphans of it remain on `gh-pages`: `pr-preview/pr-13…29/`, `shots/*.png`.
-- **Branch/sprint preview (manual, current method):** build with a subpath base and add
-  only that folder to `gh-pages`, leaving the live site untouched —
-  `npx astro build --base /NamProduct/<name>`, then via a `git worktree` off
-  `origin/gh-pages` replace only `<name>/` (keep a `.nojekyll`), commit, push. Confirm
-  `git diff --cached --name-status origin/gh-pages` shows only `<name>/`. Live preview at
-  `…/NamProduct/<name>/`. Done this way for `/prerelease/`.
+- **`deploy.yml`** — on push to `main`, builds and publishes to the `gh-pages` root via
+  `JamesIves/github-pages-deploy-action` (commit "Deploying to gh-pages … 🚀"). `clean:true`
+  with `clean-exclude: pr-preview, prerelease, shots` so it refreshes the site without
+  wiping the sibling preview/screenshot dirs.
+- **`pr-preview.yml`** — on every PR, `rossjrw/pr-preview-action` deploys to `gh-pages`
+  `pr-preview/pr-<N>/` (live at `…/NamProduct/pr-preview/pr-<N>/`) and removes it on close
+  ("Deploy preview … 🛫" / "Remove preview … 🛬"). It builds with
+  `--base /NamProduct/pr-preview/pr-<N>` so assets + BASE_URL links resolve under the subpath.
+- **`npm run shots`** regenerates demo screenshots (`scripts/capture-details.mjs`); needs
+  the NamWeb dev server running (`cd ../NamWeb && npm run dev`).
+
+History note: this automation was previously dropped in a repo history rewrite (and was
+never in CLAUDE.md/memory, so it didn't survive) — re-added 2026-06-29. Orphan artifacts of
+the old runs sit on `gh-pages`: `pr-preview/pr-13…29/`, `shots/*.png`.
+
+- **Manual one-off preview** (no PR; e.g. the `/prerelease/` build): build with a subpath
+  base and add only that folder to `gh-pages` via a `git worktree` off `origin/gh-pages`
+  (keep a `.nojekyll`); confirm `git diff --cached --name-status origin/gh-pages` shows only
+  `<name>/`. Prefer opening a PR and letting `pr-preview.yml` do it.
 
 ## Open TODOs
 

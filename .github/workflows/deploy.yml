@@ -5,34 +5,45 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Allow the workflow to publish to Pages via OIDC.
+# Pages here serves the `gh-pages` BRANCH (Pages build_type: legacy), so we publish by
+# pushing the built site to that branch — the artifact/`deploy-pages` method would not be
+# served. JamesIves needs write access to push the branch.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# One deploy at a time; don't cancel an in-progress production deploy.
+# Don't let a deploy and a PR-preview clobber each other on the gh-pages branch.
 concurrency:
-  group: pages
+  group: gh-pages-write
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # withastro/action installs deps, runs `astro build`, and uploads the Pages artifact.
-      - name: Build
-        uses: withastro/action@v3
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Publish to gh-pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          # Wipe stale site files, but keep the sibling preview/screenshot dirs that live
+          # on the branch alongside the published site.
+          clean: true
+          clean-exclude: |
+            pr-preview
+            prerelease
+            shots
