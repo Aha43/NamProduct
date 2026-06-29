@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   by a tag to pull matching actions across projects, then save the slices you live in (plus
   standing views like Due). New `public/shots/tags.png` + `due.png`; `shots.mjs` captures them.
 
+- **Goal board detail.** The **Goal board** feature card opens a single-slide deep-dive — group
+  projects by tag into a Mission Control board, each showing how far along it is. New
+  `public/shots/goals.png`; `shots.mjs` creates the board and captures it.
+
 - **Detail deep-dives.** Feature cards can now open a "detail" — a panel that hovers over the
   page to explain one aspect of Nam in depth, advanced by hand (no autoplay). The first,
   opened from the **Inbox** card, is **"Ways to process an inbox"**: decide what an item is →

@@ -133,12 +133,22 @@ const tagsDetailSlides: DetailSlide[] = [
   },
 ];
 
+const goalsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Your goals, at a glance',
+    src: `${base}/shots/goals.png`,
+    alt: 'A goal board grouping projects by tag, each showing how far along it is.',
+    description:
+      'Group projects by tag into a board — your Mission Control. Each one shows how far along it is, so in a single glance you can tell which goals are moving and which have quietly stalled.',
+  },
+];
+
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next', detailId: 'next' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags', detailId: 'tags' },
-  { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals' },
+  { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals', detailId: 'goals' },
   { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus' },
 ];
 
@@ -293,6 +303,12 @@ const iconPaths: Record<string, string> = {
       title="Tags &amp; views"
       subtitle="Slice your work by context, and keep the views you live in."
       slides={tagsDetailSlides}
+    />
+    <DetailOverlay
+      id="goals"
+      title="A board for your goals"
+      subtitle="Group projects into Mission Control — see what is moving, and what is stuck."
+      slides={goalsDetailSlides}
     />
 
     <!-- AI-native -->
