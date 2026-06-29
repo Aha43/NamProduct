@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Projects detail.** The **Projects** feature card opens a "Projects, nested as deep as you
+  like" deep-dive: group related work, then open one into a focused workbench (actions,
+  sub-projects, list/heat-map/column views). Reuses the `public/shots/` set.
+
 - **Detail deep-dives.** Feature cards can now open a "detail" — a panel that hovers over the
   page to explain one aspect of Nam in depth, advanced by hand (no autoplay). The first,
   opened from the **Inbox** card, is **"Ways to process an inbox"**: decide what an item is →

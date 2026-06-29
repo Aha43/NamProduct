@@ -89,9 +89,26 @@ const inboxDetailSlides: DetailSlide[] = [
   },
 ];
 
+const projectsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Group what belongs together',
+    src: `${base}/shots/projects.png`,
+    alt: 'The Projects list, each project showing its tag and how many actions are live.',
+    description:
+      'A project gathers related actions in one place. The list shows each one with its tag and how many actions are still live — so you can see where the work sits at a glance.',
+  },
+  {
+    caption: 'A workbench for each one',
+    src: `${base}/shots/project.png`,
+    alt: 'An open project with its actions, a sub-project, and list / heat-map / column views.',
+    description:
+      'Open a project and you get a focused workbench — its actions, a place for notes, and sub-projects nested as deep as the work really goes. Look at it as a list, a heat-map, or columns.',
+  },
+];
+
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
-  { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects' },
+  { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags' },
   { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals' },
@@ -231,6 +248,12 @@ const iconPaths: Record<string, string> = {
       title="Ways to process an inbox"
       subtitle="Go through what you captured and decide what each thing really is."
       slides={inboxDetailSlides}
+    />
+    <DetailOverlay
+      id="projects"
+      title="Projects, nested as deep as you like"
+      subtitle="Group related work, then open it up into a focused workbench."
+      slides={projectsDetailSlides}
     />
 
     <!-- AI-native -->
