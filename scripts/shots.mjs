@@ -95,6 +95,25 @@ await page.waitForTimeout(300);
 await page.locator('button[aria-label^="Delete "]').first().hover();
 await shot('process-delete'); // the trash affordance, highlighted — "let it go"
 
+// --- "Tags & views" detail ---
+await page.click('a[href="/tags"]');
+await page.waitForTimeout(1200);
+await page.getByText('home', { exact: true }).first().click(); // filter to one tag
+await page.waitForTimeout(800);
+await shot('tags');
+await page.click('a[href="/due"]'); // a standing view
+await page.waitForTimeout(1200);
+await shot('due');
+
+// --- "Goal board" detail: create a board over the home-tagged projects ---
+await page.click('a[href="/goals"]');
+await page.waitForTimeout(1000);
+await page.getByPlaceholder('New goal board…').fill('Home');
+await page.getByPlaceholder('tags (space or comma)').fill('home');
+await page.getByRole('button', { name: 'Create' }).click();
+await page.waitForTimeout(1200);
+await shot('goals');
+
 // --- "Focus mode" detail: enter the immersive deck from the Next list ---
 await page.click('a[href="/next"]');
 await page.waitForTimeout(1200);

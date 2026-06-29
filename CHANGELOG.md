@@ -9,6 +9,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Projects detail.** The **Projects** feature card opens a "Projects, nested as deep as you
+  like" deep-dive: group related work, then open one into a focused workbench (actions,
+  sub-projects, list/heat-map/column views). Reuses the `public/shots/` set.
+
+- **Next up detail.** The **Next up** feature card opens a single-slide deep-dive — the Next
+  view pulls every ready action into one list with project, tags, and due dates. Reuses
+  `public/shots/next.png`.
+
+- **Tags & views detail.** The **Tags & views** feature card opens a 2-slide deep-dive: filter
+  by a tag to pull matching actions across projects, then save the slices you live in (plus
+  standing views like Due). New `public/shots/tags.png` + `due.png`; `shots.mjs` captures them.
+
+- **Goal board detail.** The **Goal board** feature card opens a single-slide deep-dive — group
+  projects by tag into a Mission Control board, each showing how far along it is. New
+  `public/shots/goals.png`; `shots.mjs` creates the board and captures it.
+
 - **Focus mode detail.** The **Focus mode** feature card opens a single-slide deep-dive — the
   immersive, full-screen deck that plays your Next list one action at a time. New
   `public/shots/focus.png`; `shots.mjs` enters Focus from Next and captures it.

@@ -89,6 +89,60 @@ const inboxDetailSlides: DetailSlide[] = [
   },
 ];
 
+const projectsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Group what belongs together',
+    src: `${base}/shots/projects.png`,
+    alt: 'The Projects list, each project showing its tag and how many actions are live.',
+    description:
+      'A project gathers related actions in one place. The list shows each one with its tag and how many actions are still live — so you can see where the work sits at a glance.',
+  },
+  {
+    caption: 'A workbench for each one',
+    src: `${base}/shots/project.png`,
+    alt: 'An open project with its actions, a sub-project, and list / heat-map / column views.',
+    description:
+      'Open a project and you get a focused workbench — its actions, a place for notes, and sub-projects nested as deep as the work really goes. Look at it as a list, a heat-map, or columns.',
+  },
+];
+
+const nextDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Everything ready, in one list',
+    src: `${base}/shots/next.png`,
+    alt: 'The Next view: actions ready to do now, each with its project, tags, and due date.',
+    description:
+      'Nam pulls the actions that are genuinely ready — across every project — into one list, each with its project, tags, and any due date. You do not go hunting for what is next; it is already in front of you.',
+  },
+];
+
+const tagsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Slice by context',
+    src: `${base}/shots/tags.png`,
+    alt: 'The Tags view filtered to one tag, pulling matching actions from across projects.',
+    description:
+      'Tag actions however you think — @phone, home, learn — then pick a tag to pull every matching action together, across all your projects at once.',
+  },
+  {
+    caption: 'Save the views you live in',
+    src: `${base}/shots/due.png`,
+    alt: 'A standing view listing actions with deadlines.',
+    description:
+      'Found a slice you keep coming back to? Save it as a view. Nam also keeps standing views ready — like everything with a deadline, or the backlog waiting its turn.',
+  },
+];
+
+const goalsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Your goals, at a glance',
+    src: `${base}/shots/goals.png`,
+    alt: 'A goal board grouping projects by tag, each showing how far along it is.',
+    description:
+      'Group projects by tag into a board — your Mission Control. Each one shows how far along it is, so in a single glance you can tell which goals are moving and which have quietly stalled.',
+  },
+];
+
 const focusDetailSlides: DetailSlide[] = [
   {
     caption: 'One thing at a time',
@@ -101,10 +155,10 @@ const focusDetailSlides: DetailSlide[] = [
 
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
-  { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects' },
-  { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next' },
-  { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags' },
-  { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals' },
+  { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
+  { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next', detailId: 'next' },
+  { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags', detailId: 'tags' },
+  { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals', detailId: 'goals' },
   { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus', detailId: 'focus' },
 ];
 
@@ -241,6 +295,30 @@ const iconPaths: Record<string, string> = {
       title="Ways to process an inbox"
       subtitle="Go through what you captured and decide what each thing really is."
       slides={inboxDetailSlides}
+    />
+    <DetailOverlay
+      id="projects"
+      title="Projects, nested as deep as you like"
+      subtitle="Group related work, then open it up into a focused workbench."
+      slides={projectsDetailSlides}
+    />
+    <DetailOverlay
+      id="next"
+      title="The one list of what is ready"
+      subtitle="No digging, no deciding what is next — Nam keeps it in front of you."
+      slides={nextDetailSlides}
+    />
+    <DetailOverlay
+      id="tags"
+      title="Tags &amp; views"
+      subtitle="Slice your work by context, and keep the views you live in."
+      slides={tagsDetailSlides}
+    />
+    <DetailOverlay
+      id="goals"
+      title="A board for your goals"
+      subtitle="Group projects into Mission Control — see what is moving, and what is stuck."
+      slides={goalsDetailSlides}
     />
     <DetailOverlay
       id="focus"
