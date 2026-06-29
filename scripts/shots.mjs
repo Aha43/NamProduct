@@ -114,5 +114,12 @@ await page.getByRole('button', { name: 'Create' }).click();
 await page.waitForTimeout(1200);
 await shot('goals');
 
+// --- "Focus mode" detail: enter the immersive deck from the Next list ---
+await page.click('a[href="/next"]');
+await page.waitForTimeout(1200);
+await page.click('a[href="/focus"]');
+await page.waitForTimeout(1800);
+await shot('focus');
+
 await browser.close();
 console.log('Done →', OUT);

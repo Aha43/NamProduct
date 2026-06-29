@@ -143,13 +143,23 @@ const goalsDetailSlides: DetailSlide[] = [
   },
 ];
 
+const focusDetailSlides: DetailSlide[] = [
+  {
+    caption: 'One thing at a time',
+    src: `${base}/shots/focus.png`,
+    alt: 'Focus mode showing a single action card, full screen, with done and skip controls.',
+    description:
+      'Focus mode clears everything but the action in front of you — one card at a time, drawn from your Next list. Mark it done, push it to the backlog, or move on, and the next slides in. All keyboard, nothing else in the way.',
+  },
+];
+
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next', detailId: 'next' },
   { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags', detailId: 'tags' },
   { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals', detailId: 'goals' },
-  { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus' },
+  { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus', detailId: 'focus' },
 ];
 
 // Imagined review — the kind of write-up Nam is built to earn, not real coverage.
@@ -309,6 +319,12 @@ const iconPaths: Record<string, string> = {
       title="A board for your goals"
       subtitle="Group projects into Mission Control — see what is moving, and what is stuck."
       slides={goalsDetailSlides}
+    />
+    <DetailOverlay
+      id="focus"
+      title="Focus mode"
+      subtitle="One action at a time, full screen — nothing else in the way."
+      slides={focusDetailSlides}
     />
 
     <!-- AI-native -->
