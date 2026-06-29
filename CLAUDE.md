@@ -27,7 +27,7 @@ in sibling repos `../NamDesktop` (Java/Swing, primary) and `../NamWeb` (React, c
 
 ## Messaging (keep consistent with the apps)
 
-- Tagline: **"Stay clear. Nothing gets lost."**
+- Tagline: **"Capture loose ends. Find the next action."**
 - Positioning: use it anywhere · stay focused · work with AI.
 - **NamWeb is the default, standalone product** — runs in any browser, with **real accounts**
   (sign up / verify / export), single-player by design. The **demo** is the no-account on-ramp;
