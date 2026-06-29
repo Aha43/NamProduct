@@ -49,8 +49,14 @@ Adapted from NamWeb's, scaled down for a static marketing site.
   self-merge is fine once `check` passes.
 - **Check the branch before committing.** If on `main`, warn and stop. Feature work goes on a
   branch (default `feature/next`, renamed descriptively before the PR).
-- **One issue at a time** — stop and confirm before the next. **Auto-sprint mode** runs an agreed
-  batch straight through: one issue → one independent branch → one PR, no merging mid-sprint.
+- **One PR per content sprint, not per item.** This is a *content* project, so a whole sprint
+  (e.g. "details for Projects, Next, Tags, Goals, Focus") lands as **one branch → one PR** — its
+  items are slices of the same few files (`src/pages/index.astro`, `scripts/shots.mjs`,
+  `CHANGELOG.md`), so splitting them into parallel per-item PRs just makes them collide on the same
+  lines and turns merging into a conflict slog. (The *app* repos — NamWeb, NamDesktop — are the
+  opposite: there a PR is an independent unit of functionality, so one-PR-per-item is right. That
+  model does not carry over here.) Work one sprint at a time, stop and confirm before the next, and
+  only split into multiple PRs if explicitly asked.
 - **Update `CHANGELOG.md`** (`## [Unreleased]`) only for substantive content/design/structure
   changes — not routine copy tweaks. `Added` / `Changed` / `Fixed`, with `Closes #<n>`.
 - **PR previews:** every PR is published to `gh-pages` at `/NamProduct/pr-preview/pr-<n>/`
