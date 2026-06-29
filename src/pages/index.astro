@@ -116,11 +116,28 @@ const nextDetailSlides: DetailSlide[] = [
   },
 ];
 
+const tagsDetailSlides: DetailSlide[] = [
+  {
+    caption: 'Slice by context',
+    src: `${base}/shots/tags.png`,
+    alt: 'The Tags view filtered to one tag, pulling matching actions from across projects.',
+    description:
+      'Tag actions however you think — @phone, home, learn — then pick a tag to pull every matching action together, across all your projects at once.',
+  },
+  {
+    caption: 'Save the views you live in',
+    src: `${base}/shots/due.png`,
+    alt: 'A standing view listing actions with deadlines.',
+    description:
+      'Found a slice you keep coming back to? Save it as a view. Nam also keeps standing views ready — like everything with a deadline, or the backlog waiting its turn.',
+  },
+];
+
 const features: { title: string; desc: string; icon: string; detailId?: string }[] = [
   { title: 'Inbox', desc: 'Capture anything in a keystroke and decide what it is later.', icon: 'inbox', detailId: 'inbox' },
   { title: 'Projects', desc: 'Group related work and nest it as deep as you need.', icon: 'projects', detailId: 'projects' },
   { title: 'Next up', desc: 'A clear list of what is actually ready to do right now.', icon: 'next', detailId: 'next' },
-  { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags' },
+  { title: 'Tags & views', desc: 'Slice your work by context and save the views you live in.', icon: 'tags', detailId: 'tags' },
   { title: 'Goal board', desc: 'See at a glance which projects are moving and which are stuck.', icon: 'goals' },
   { title: 'Focus mode', desc: 'Work through a list one item at a time, with nothing else in the way.', icon: 'focus' },
 ];
@@ -270,6 +287,12 @@ const iconPaths: Record<string, string> = {
       title="The one list of what is ready"
       subtitle="No digging, no deciding what is next — Nam keeps it in front of you."
       slides={nextDetailSlides}
+    />
+    <DetailOverlay
+      id="tags"
+      title="Tags &amp; views"
+      subtitle="Slice your work by context, and keep the views you live in."
+      slides={tagsDetailSlides}
     />
 
     <!-- AI-native -->

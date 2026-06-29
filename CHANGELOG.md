@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   view pulls every ready action into one list with project, tags, and due dates. Reuses
   `public/shots/next.png`.
 
+- **Tags & views detail.** The **Tags & views** feature card opens a 2-slide deep-dive: filter
+  by a tag to pull matching actions across projects, then save the slices you live in (plus
+  standing views like Due). New `public/shots/tags.png` + `due.png`; `shots.mjs` captures them.
+
 - **Detail deep-dives.** Feature cards can now open a "detail" — a panel that hovers over the
   page to explain one aspect of Nam in depth, advanced by hand (no autoplay). The first,
   opened from the **Inbox** card, is **"Ways to process an inbox"**: decide what an item is →
