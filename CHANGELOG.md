@@ -16,6 +16,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   set (`scripts/shots.mjs` now also captures the Process… flow). Complements, doesn't replace,
   the inline slideshow.
 
+- **Full-screen detail slides.** A "Full screen" toggle blows a detail's slideshow up to a
+  full-bleed lightbox so the screenshot details are legible, with the caption, description, and
+  Back/Next controls floating over the image. You can still page through slides; Esc (or the
+  toggle, or clicking the image) steps back out before it closes the overlay.
+
 ### Changed
 
 - **Plainer AI section.** Dropped the engineering jargon ("over MCP", "connect … to") — the copy
