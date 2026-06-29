@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- **Detail deep-dives.** Feature cards can now open a "detail" — a panel that hovers over the
+  page to explain one aspect of Nam in depth, advanced by hand (no autoplay). The first,
+  opened from the **Inbox** card, is **"Ways to process an inbox"**: decide what an item is →
+  a quick action → something bigger → nothing to do. Screenshots reuse the `public/shots/`
+  set (`scripts/shots.mjs` now also captures the Process… flow). Complements, doesn't replace,
+  the inline slideshow.
+
 ### Changed
 
 - **Plainer AI section.** Dropped the engineering jargon ("over MCP", "connect … to") — the copy
