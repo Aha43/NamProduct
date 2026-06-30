@@ -9,6 +9,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Details can hold multiple slideshows ("ways").** When a topic has more than one way to do
+  it in the app, a detail shows a tab picker to switch between labelled slideshows (`ways` prop
+  on `DetailOverlay`; the old `slides` prop still works for single-slideshow details). Switching
+  a way starts it from the beginning.
+
+- **Inbox detail: a second "In bulk" way.** Alongside "One at a time" (the Process… flow), the
+  Inbox detail now shows bulk processing — select several items and file the whole batch in one
+  move. New `public/shots/inbox-bulk-select.png` + `inbox-bulk-file.png`; `shots.mjs` captures them.
+
+- **Easier to restart a slideshow.** Multi-slide detail slideshows gained a "Start over" button,
+  and the position dots are now clickable (jump to any slide, including the first).
+
 - **Projects detail.** The **Projects** feature card opens a "Projects, nested as deep as you
   like" deep-dive: group related work, then open one into a focused workbench (actions,
   sub-projects, list/heat-map/column views). Reuses the `public/shots/` set.
