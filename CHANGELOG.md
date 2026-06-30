@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
+- **Hand-drawn highlights on detail screenshots.** `scripts/shots.mjs` can ring the element a
+  caption is about with a wobbly, marker-style loop — deliberately *not* a clean circle, so it
+  never reads as app chrome. Supports several marks per shot, in semantic colors (e.g. green =
+  do this, red = destructive) and optional ①②③ numbers; the meaning lives in the slide
+  description. Applied to the Inbox-detail shots (Process… flow + bulk). Marks are seeded so
+  re-running `npm run shots` reproduces the same wobble.
+
 - **Details can hold multiple slideshows ("ways").** When a topic has more than one way to do
   it in the app, a detail shows a tab picker to switch between labelled slideshows (`ways` prop
   on `DetailOverlay`; the old `slides` prop still works for single-slideshow details). Switching
