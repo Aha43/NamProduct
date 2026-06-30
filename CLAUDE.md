@@ -25,6 +25,23 @@ in sibling repos `../NamDesktop` (Java/Swing, primary) and `../NamWeb` (React, c
 - Single landing page (`src/pages/index.astro`); add per-product pages under `src/pages/`
   only if scope grows.
 
+## Page building blocks — infra is feature-complete; default to content
+
+The page's interaction machinery is built and stable. **New work is almost always content —
+writing slides/copy and capturing demo shots (`npm run shots`), pointing the existing
+components at more of the app. Don't build new mechanisms unless a genuinely new interaction
+is needed; reach for what's here first:**
+
+- **`DetailOverlay.astro`** — the on-demand deep-dive a feature card opens (`detailId` on
+  `FeatureCard`). One slideshow via `slides`, or several labelled ones via `ways:
+  {label, slides}[]` (tab picker) when a topic has more than one way to do a thing in the app.
+  Built in: full-screen lightbox toggle, "Start over" + clickable dots, Esc-steps-out.
+- **`Screenshots.astro`** — the "See it in action" slideshow; on the page it's opened
+  full-screen from a compact trigger (big X to close), not inline.
+- **Screenshots** live in `public/shots/`, captured from the live demo (`usenam.app/demo`) by
+  `scripts/shots.mjs`; slide `src` paths are built with the `base` var so they resolve under
+  the Pages subpath. Add a capture block there for any new shot so `npm run shots` regenerates it.
+
 ## Messaging (keep consistent with the apps)
 
 - Tagline: **"Capture loose ends. Find the next action."**
