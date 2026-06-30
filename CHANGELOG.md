@@ -16,6 +16,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
   description. Applied to the Inbox-detail shots (Process… flow + bulk). Marks are seeded so
   re-running `npm run shots` reproduces the same wobble.
 
+- **Highlights on the Tags & Projects details.** Extended the hand-drawn marks where they point
+  at something specific: the sliced tag (Tags), the sidebar views cluster (the "save the views"
+  slide), and the list/heat-map/column toggle (the open-project workbench). Other details with
+  a single overview shot are left unmarked — it's a tool used only where it helps.
+
 - **Details can hold multiple slideshows ("ways").** When a topic has more than one way to do
   it in the app, a detail shows a tab picker to switch between labelled slideshows (`ways` prop
   on `DetailOverlay`; the old `slides` prop still works for single-slideshow details). Switching

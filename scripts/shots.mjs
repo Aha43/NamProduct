@@ -141,7 +141,9 @@ for (const label of ['ACTIONS', 'SUB-PROJECTS']) {
     /* section already expanded or absent */
   }
 }
-await shot('project');
+await shotWith('project', [
+  { union: page.getByRole('button', { name: /^(List|Heat-map|Column)$/ }), color: 'green' }, // view it different ways
+]);
 
 await page.click('a[href="/projects"]');
 await page.waitForTimeout(1300);
@@ -201,10 +203,12 @@ await page.click('a[href="/tags"]');
 await page.waitForTimeout(1200);
 await page.getByText('home', { exact: true }).first().click(); // filter to one tag
 await page.waitForTimeout(800);
-await shot('tags');
+await shotWith('tags', [{ sel: page.getByText('home', { exact: true }).first(), color: 'green' }]); // the tag you sliced by
 await page.click('a[href="/due"]'); // a standing view
 await page.waitForTimeout(1200);
-await shot('due');
+await shotWith('due', [
+  { union: page.getByRole('link', { name: /^(Backlog|Due|Blocked|Done)$/ }), color: 'green' }, // the views in the sidebar
+]);
 
 // --- "Goal board" detail: create a board over the home-tagged projects ---
 await page.click('a[href="/goals"]');
