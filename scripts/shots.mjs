@@ -95,6 +95,18 @@ await page.waitForTimeout(300);
 await page.locator('button[aria-label^="Delete "]').first().hover();
 await shot('process-delete'); // the trash affordance, highlighted — "let it go"
 
+// --- "In bulk" way of the Inbox detail: select several items, then act on the whole batch ---
+await page.getByRole('button', { name: 'Select items' }).click();
+await page.waitForTimeout(500);
+for (const t of ['Email Sara about the long weekend', 'Look into an Italian phrasebook app', 'Birthday gift for Mom 🎁']) {
+  await page.getByLabel(`Select ${t}`).check();
+  await page.waitForTimeout(120);
+}
+await shot('inbox-bulk-select'); // a few items ticked, the bulk action bar showing
+await page.getByRole('button', { name: 'Select all' }).click();
+await page.waitForTimeout(400);
+await shot('inbox-bulk-file'); // whole batch selected, ready to file in one move
+
 // --- "Tags & views" detail ---
 await page.click('a[href="/tags"]');
 await page.waitForTimeout(1200);

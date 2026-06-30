@@ -83,6 +83,24 @@ const inboxDetailSlides: DetailSlide[] = [
   },
 ];
 
+// The second "way" of the Inbox detail: clearing many items at once.
+const inboxBulkSlides: DetailSlide[] = [
+  {
+    caption: 'Select what is alike',
+    src: `${base}/shots/inbox-bulk-select.png`,
+    alt: 'Select mode in the inbox, with several items ticked and a bulk action bar.',
+    description:
+      'Flip on select mode and tick everything that belongs together — every @errand, say, or all of one project’s stray notes.',
+  },
+  {
+    caption: 'Act on the whole batch',
+    src: `${base}/shots/inbox-bulk-file.png`,
+    alt: 'The whole inbox selected, ready to file in one action.',
+    description:
+      'Then make one call for the lot: send them all to Next, drop them in the backlog, turn them into projects, or clear them out.',
+  },
+];
+
 const projectsDetailSlides: DetailSlide[] = [
   {
     caption: 'Group what belongs together',
@@ -314,8 +332,11 @@ const iconPaths: Record<string, string> = {
     <DetailOverlay
       id="inbox"
       title="Ways to process an inbox"
-      subtitle="Go through what you captured and decide what each thing really is."
-      slides={inboxDetailSlides}
+      subtitle="One at a time, or several at once — decide what each thing really is."
+      ways={[
+        { label: 'One at a time', slides: inboxDetailSlides },
+        { label: 'In bulk', slides: inboxBulkSlides },
+      ]}
     />
     <DetailOverlay
       id="projects"

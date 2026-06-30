@@ -1,32 +1,43 @@
 ---
 // A "detail": a panel that hovers over the page to explain one aspect of Nam in depth.
-// Where the Screenshots slideshow is the always-on overview, a detail is the on-demand
-// deep dive — opened from a feature card and advanced by hand (no autoplay). Each slide is
-// a caption on top, a screenshot in the middle, and a short description at the bottom.
+// Opened on demand from a feature card; advanced by hand (no autoplay). Each slide is a
+// caption on top, a screenshot in the middle, and a short description at the bottom.
 //
-// A "Full screen" toggle blows the slideshow up to fill the viewport so screenshot details
-// are legible; you still page through slides, and Esc (or the toggle, or clicking the image)
-// steps back out before it closes the overlay.
+// A detail can hold MORE THAN ONE slideshow ("ways") when there's more than one way to do a
+// thing in the app — e.g. processing the inbox one item at a time vs. in bulk. Pass `ways`
+// (a labelled track each); a tab picker switches between them. For the common single-slideshow
+// case, pass `slides` instead. Each slideshow has Back / dots / Next, a "Start over" restart,
+// and a "Full screen" lightbox toggle; Esc (or the toggle, or clicking the image) steps out of
+// full screen before closing.
 //
-// Open it from anywhere with a trigger: <button data-detail-open="inbox">…</button>, where
-// "inbox" matches this component's `id`. Image `src` paths should already include the site
-// base (build them with import.meta.env.BASE_URL, as index.astro does for the slideshow).
+// Open from anywhere with a trigger: <button data-detail-open="inbox">…</button>, where "inbox"
+// matches this component's `id`. Image `src` paths should already include the site base.
 export interface DetailSlide {
   caption: string;
   src: string;
   alt: string;
   description: string;
 }
+export interface DetailWay {
+  /** Tab label, e.g. "One at a time". */
+  label: string;
+  slides: DetailSlide[];
+}
 
 interface Props {
   id: string;
   title: string;
   subtitle?: string;
-  slides: DetailSlide[];
+  /** A single slideshow. */
+  slides?: DetailSlide[];
+  /** Two or more labelled slideshows (shows a tab picker). Takes precedence over `slides`. */
+  ways?: DetailWay[];
 }
 
-const { id, title, subtitle, slides } = Astro.props;
-const multi = slides.length > 1;
+const { id, title, subtitle, slides, ways } = Astro.props;
+const tracks: DetailWay[] = ways && ways.length ? ways : [{ label: '', slides: slides ?? [] }];
+const multiWay = tracks.length > 1;
+const firstHasNav = (tracks[0]?.slides.length ?? 0) > 1;
 ---
 
 <dialog
@@ -64,59 +75,87 @@ const multi = slides.length > 1;
       </div>
     </header>
 
-    <div class="overflow-y-auto px-6 py-6 sm:px-8 group-data-[expanded=true]:absolute group-data-[expanded=true]:inset-0 group-data-[expanded=true]:flex group-data-[expanded=true]:items-center group-data-[expanded=true]:justify-center group-data-[expanded=true]:overflow-hidden group-data-[expanded=true]:p-0">
-      {slides.map((slide, i) => (
-        <figure
-          data-detail-slide={i}
-          class={`flex flex-col group-data-[expanded=true]:relative group-data-[expanded=true]:h-full group-data-[expanded=true]:w-full ${i === 0 ? '' : 'hidden'}`}
-        >
-          <figcaption class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-brand group-data-[expanded=true]:absolute group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:top-4 group-data-[expanded=true]:z-10 group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:rounded-full group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-3.5 group-data-[expanded=true]:py-1 group-data-[expanded=true]:backdrop-blur">
-            {slide.caption}
-          </figcaption>
-          <div
-            data-detail-zoom
-            title="Toggle full screen"
-            class="mt-4 cursor-zoom-in overflow-hidden rounded-xl border border-border bg-background group-data-[expanded=true]:absolute group-data-[expanded=true]:inset-0 group-data-[expanded=true]:mt-0 group-data-[expanded=true]:flex group-data-[expanded=true]:cursor-zoom-out group-data-[expanded=true]:items-center group-data-[expanded=true]:justify-center group-data-[expanded=true]:rounded-none group-data-[expanded=true]:border-0 group-data-[expanded=true]:bg-transparent group-data-[expanded=true]:p-2"
+    {multiWay && (
+      <div
+        data-detail-ways
+        role="tablist"
+        aria-label="Ways to do this"
+        class="flex flex-wrap items-center justify-center gap-1.5 border-b border-border/60 px-6 py-3 sm:px-8 group-data-[expanded=true]:hidden"
+      >
+        {tracks.map((track, ti) => (
+          <button
+            type="button"
+            data-detail-way={ti}
+            data-active={ti === 0 ? 'true' : 'false'}
+            class="rounded-full border border-border px-3.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground data-[active=true]:border-brand/40 data-[active=true]:bg-brand/10 data-[active=true]:text-brand"
           >
-            <img src={slide.src} alt={slide.alt} loading="lazy" class="block w-full group-data-[expanded=true]:h-auto group-data-[expanded=true]:max-h-[calc(100vh-1rem)] group-data-[expanded=true]:w-auto group-data-[expanded=true]:max-w-full group-data-[expanded=true]:object-contain" />
-          </div>
-          <p class="mx-auto mt-4 max-w-2xl text-pretty text-center leading-relaxed text-muted-foreground group-data-[expanded=true]:absolute group-data-[expanded=true]:bottom-16 group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:z-10 group-data-[expanded=true]:mt-0 group-data-[expanded=true]:max-w-xl group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:rounded-lg group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-4 group-data-[expanded=true]:py-2 group-data-[expanded=true]:backdrop-blur">
-            {slide.description}
-          </p>
-        </figure>
-      ))}
+            {track.label}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <div class="overflow-y-auto px-6 py-6 sm:px-8 group-data-[expanded=true]:absolute group-data-[expanded=true]:inset-0 group-data-[expanded=true]:flex group-data-[expanded=true]:items-center group-data-[expanded=true]:justify-center group-data-[expanded=true]:overflow-hidden group-data-[expanded=true]:p-0">
+      {tracks.map((track, ti) =>
+        track.slides.map((slide, si) => (
+          <figure
+            data-detail-track={ti}
+            data-detail-slide={si}
+            class={`flex flex-col group-data-[expanded=true]:relative group-data-[expanded=true]:h-full group-data-[expanded=true]:w-full ${ti === 0 && si === 0 ? '' : 'hidden'}`}
+          >
+            <figcaption class="text-center text-sm font-semibold uppercase tracking-[0.2em] text-brand group-data-[expanded=true]:absolute group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:top-4 group-data-[expanded=true]:z-10 group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:rounded-full group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-3.5 group-data-[expanded=true]:py-1 group-data-[expanded=true]:backdrop-blur">
+              {slide.caption}
+            </figcaption>
+            <div
+              data-detail-zoom
+              title="Toggle full screen"
+              class="mt-4 cursor-zoom-in overflow-hidden rounded-xl border border-border bg-background group-data-[expanded=true]:absolute group-data-[expanded=true]:inset-0 group-data-[expanded=true]:mt-0 group-data-[expanded=true]:flex group-data-[expanded=true]:cursor-zoom-out group-data-[expanded=true]:items-center group-data-[expanded=true]:justify-center group-data-[expanded=true]:rounded-none group-data-[expanded=true]:border-0 group-data-[expanded=true]:bg-transparent group-data-[expanded=true]:p-2"
+            >
+              <img src={slide.src} alt={slide.alt} loading="lazy" class="block w-full group-data-[expanded=true]:h-auto group-data-[expanded=true]:max-h-[calc(100vh-1rem)] group-data-[expanded=true]:w-auto group-data-[expanded=true]:max-w-full group-data-[expanded=true]:object-contain" />
+            </div>
+            <p class="mx-auto mt-4 max-w-2xl text-pretty text-center leading-relaxed text-muted-foreground group-data-[expanded=true]:absolute group-data-[expanded=true]:bottom-16 group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:z-10 group-data-[expanded=true]:mt-0 group-data-[expanded=true]:max-w-xl group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:rounded-lg group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-4 group-data-[expanded=true]:py-2 group-data-[expanded=true]:backdrop-blur">
+              {slide.description}
+            </p>
+          </figure>
+        )),
+      )}
     </div>
 
-    {multi && (
-      <footer class="flex items-center justify-between gap-4 border-t border-border/60 px-6 py-4 sm:px-8 group-data-[expanded=true]:absolute group-data-[expanded=true]:bottom-3 group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:z-20 group-data-[expanded=true]:w-auto group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:justify-center group-data-[expanded=true]:gap-4 group-data-[expanded=true]:rounded-full group-data-[expanded=true]:border-0 group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-3 group-data-[expanded=true]:py-2 group-data-[expanded=true]:backdrop-blur">
+    <footer
+      data-detail-footer
+      class={`items-center justify-between gap-4 border-t border-border/60 px-6 py-4 sm:px-8 group-data-[expanded=true]:absolute group-data-[expanded=true]:bottom-3 group-data-[expanded=true]:left-1/2 group-data-[expanded=true]:z-20 group-data-[expanded=true]:w-auto group-data-[expanded=true]:-translate-x-1/2 group-data-[expanded=true]:justify-center group-data-[expanded=true]:gap-4 group-data-[expanded=true]:rounded-full group-data-[expanded=true]:border-0 group-data-[expanded=true]:bg-background/70 group-data-[expanded=true]:px-3 group-data-[expanded=true]:py-2 group-data-[expanded=true]:backdrop-blur ${firstHasNav ? 'flex' : 'hidden'}`}
+    >
+      <button
+        type="button"
+        data-detail-prev
+        class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+        Back
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div data-detail-dots class="flex items-center gap-2"></div>
         <button
           type="button"
-          data-detail-prev
-          class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
+          data-detail-restart
+          aria-label="Start over"
+          title="Start over"
+          class="inline-flex h-7 w-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted/40 hover:text-foreground"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6" /></svg>
-          Back
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /></svg>
         </button>
+      </div>
 
-        <div class="flex items-center gap-2">
-          {slides.map((_, i) => (
-            <span
-              data-detail-dot={i}
-              class={`h-1.5 w-1.5 rounded-full transition-colors ${i === 0 ? 'bg-brand' : 'bg-border'}`}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          data-detail-next
-          class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Next
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
-        </button>
-      </footer>
-    )}
+      <button
+        type="button"
+        data-detail-next
+        class="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-brand/50 disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6" /></svg>
+      </button>
+    </footer>
   </div>
 </dialog>
 
@@ -126,11 +165,33 @@ const multi = slides.length > 1;
   if (!(window as any).__detailOverlayInit) {
     (window as any).__detailOverlayInit = true;
 
+    const figuresOf = (dialog: HTMLElement, track: number) =>
+      dialog.querySelectorAll<HTMLElement>(`[data-detail-track="${track}"]`);
+
+    // Rebuild the dot row to match the active track's slide count (tracks can differ in length).
+    const buildDots = (dialog: HTMLElement, track: number) => {
+      const wrap = dialog.querySelector<HTMLElement>('[data-detail-dots]');
+      if (!wrap) return;
+      const n = figuresOf(dialog, track).length;
+      wrap.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const dot = document.createElement('span');
+        dot.dataset.detailDot = String(i);
+        dot.className =
+          'h-1.5 w-1.5 cursor-pointer rounded-full transition-colors ' +
+          (i === 0 ? 'bg-brand' : 'bg-border hover:bg-foreground/40');
+        wrap.appendChild(dot);
+      }
+    };
+
+    // Show slide `index` within the active track.
     const showSlide = (dialog: HTMLElement, index: number) => {
-      const slides = dialog.querySelectorAll<HTMLElement>('[data-detail-slide]');
-      const clamped = Math.max(0, Math.min(index, slides.length - 1));
-      slides.forEach((s, i) => s.classList.toggle('hidden', i !== clamped));
-      dialog.dataset.current = String(clamped);
+      const track = Number(dialog.dataset.track ?? 0);
+      const figs = figuresOf(dialog, track);
+      if (!figs.length) return;
+      const clamped = Math.max(0, Math.min(index, figs.length - 1));
+      figs.forEach((f, i) => f.classList.toggle('hidden', i !== clamped));
+      dialog.dataset.slide = String(clamped);
 
       dialog.querySelectorAll<HTMLElement>('[data-detail-dot]').forEach((dot, i) => {
         dot.classList.toggle('bg-brand', i === clamped);
@@ -140,7 +201,24 @@ const multi = slides.length > 1;
       const prev = dialog.querySelector<HTMLButtonElement>('[data-detail-prev]');
       const next = dialog.querySelector<HTMLButtonElement>('[data-detail-next]');
       if (prev) prev.disabled = clamped === 0;
-      if (next) next.disabled = clamped === slides.length - 1;
+      if (next) next.disabled = clamped === figs.length - 1;
+    };
+
+    // Switch to a different "way" (track) and start it from the beginning.
+    const showTrack = (dialog: HTMLElement, track: number) => {
+      dialog.querySelectorAll<HTMLElement>('[data-detail-track]').forEach((f) => f.classList.add('hidden'));
+      dialog.dataset.track = String(track);
+      dialog
+        .querySelectorAll<HTMLElement>('[data-detail-way]')
+        .forEach((w, i) => w.setAttribute('data-active', i === track ? 'true' : 'false'));
+      buildDots(dialog, track);
+      const footer = dialog.querySelector<HTMLElement>('[data-detail-footer]');
+      if (footer) {
+        const hasNav = figuresOf(dialog, track).length > 1;
+        footer.classList.toggle('hidden', !hasNav);
+        footer.classList.toggle('flex', hasNav);
+      }
+      showSlide(dialog, 0);
     };
 
     // Toggle the full-screen (expanded) state and keep the toggle button's icon + label in sync.
@@ -163,8 +241,8 @@ const multi = slides.length > 1;
         e.preventDefault();
         const dialog = document.getElementById(`detail-${opener.dataset.detailOpen}`) as HTMLDialogElement | null;
         if (dialog) {
-          setExpanded(dialog, false); // always open at normal size
-          showSlide(dialog, 0);
+          setExpanded(dialog, false); // always open at normal size, first way, from the top
+          showTrack(dialog, 0);
           dialog.showModal();
         }
         return;
@@ -173,12 +251,21 @@ const multi = slides.length > 1;
       const dialog = target.closest<HTMLDialogElement>('[data-detail-overlay]');
       if (!dialog) return;
 
+      const way = target.closest<HTMLElement>('[data-detail-way]');
+      const dot = target.closest<HTMLElement>('[data-detail-dot]');
+
       if (target.closest('[data-detail-close]')) {
         dialog.close();
+      } else if (way) {
+        showTrack(dialog, Number(way.dataset.detailWay ?? 0));
+      } else if (target.closest('[data-detail-restart]')) {
+        showSlide(dialog, 0);
+      } else if (dot) {
+        showSlide(dialog, Number(dot.dataset.detailDot ?? 0));
       } else if (target.closest('[data-detail-prev]')) {
-        showSlide(dialog, Number(dialog.dataset.current ?? 0) - 1);
+        showSlide(dialog, Number(dialog.dataset.slide ?? 0) - 1);
       } else if (target.closest('[data-detail-next]')) {
-        showSlide(dialog, Number(dialog.dataset.current ?? 0) + 1);
+        showSlide(dialog, Number(dialog.dataset.slide ?? 0) + 1);
       } else if (target.closest('[data-detail-toggle-expand]') || target.closest('[data-detail-zoom]')) {
         setExpanded(dialog, dialog.dataset.expanded !== 'true');
       } else if (target === dialog) {
@@ -190,7 +277,7 @@ const multi = slides.length > 1;
       if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
       const dialog = document.querySelector<HTMLDialogElement>('[data-detail-overlay][open]');
       if (!dialog) return;
-      showSlide(dialog, Number(dialog.dataset.current ?? 0) + (e.key === 'ArrowRight' ? 1 : -1));
+      showSlide(dialog, Number(dialog.dataset.slide ?? 0) + (e.key === 'ArrowRight' ? 1 : -1));
     });
 
     // Esc steps out of full screen first (one press), then closes the overlay (next press).
